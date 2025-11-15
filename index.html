@@ -1,0 +1,3074 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViaFlow - Software Development Proposal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        @media print {
+            @page {
+                margin: 2cm;
+                size: A4;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            .page-break {
+                page-break-before: always;
+            }
+
+            .no-break {
+                page-break-inside: avoid;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.7;
+            color: #1a1a1a;
+            background: #fafafa;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 0;
+        }
+        
+        .document-wrapper {
+            background: white;
+            min-height: 100vh;
+            padding: 40mm 30mm;
+            box-shadow: 0 0 0 1px rgba(0,0,0,0.05);
+        }
+
+        .cover-page {
+            text-align: left;
+            padding: 0;
+            background: white;
+            color: #1a1a1a;
+            margin-bottom: 60px;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 40px;
+        }
+
+        .cover-page h1 {
+            font-size: 4.5em;
+            margin-bottom: 20px;
+            color: #0f172a;
+            font-weight: 800;
+            letter-spacing: -2px;
+            line-height: 1.1;
+        }
+
+        .cover-page h2 {
+            font-size: 1.75em;
+            margin-bottom: 60px;
+            color: #64748b;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .cover-info {
+            background: transparent;
+            padding: 0;
+            margin: 0;
+            max-width: 100%;
+            border-top: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .cover-info p {
+            font-size: 0.95em;
+            margin: 0;
+            color: #475569;
+            font-weight: 400;
+            letter-spacing: 0.2px;
+        }
+        
+        .cover-info p strong {
+            color: #0f172a;
+            font-weight: 600;
+        }
+
+        h1 {
+            color: #0f172a;
+            font-size: 2.25em;
+            margin: 50px 0 24px 0;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            border-bottom: none;
+            padding-bottom: 0;
+            position: relative;
+        }
+        
+        h1:not(.cover-page h1):after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: #2563eb;
+            border-radius: 2px;
+        }
+
+        h2 {
+            color: #1e293b;
+            font-size: 1.75em;
+            margin: 36px 0 16px 0;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            border-left: none;
+            padding-left: 0;
+        }
+
+        h3 {
+            color: #334155;
+            font-size: 1.375em;
+            margin: 28px 0 12px 0;
+            font-weight: 600;
+            letter-spacing: -0.2px;
+        }
+
+        h4 {
+            color: #475569;
+            font-size: 1.125em;
+            margin: 20px 0 8px 0;
+            font-weight: 600;
+        }
+
+        p {
+            margin: 0 0 16px 0;
+            text-align: left;
+            color: #475569;
+            font-size: 0.95em;
+            line-height: 1.75;
+        }
+
+        ul,
+        ol {
+            margin: 16px 0;
+            padding-left: 24px;
+        }
+
+        li {
+            margin: 8px 0;
+            color: #475569;
+            line-height: 1.7;
+        }
+        
+        li strong {
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        .highlight-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #2563eb;
+            padding: 24px;
+            margin: 24px 0;
+            border-radius: 8px;
+        }
+
+        .info-box {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-left: 4px solid #f59e0b;
+            padding: 24px;
+            margin: 24px 0;
+            border-radius: 8px;
+        }
+
+        .success-box {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-left: 4px solid #10b981;
+            padding: 24px;
+            margin: 24px 0;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 24px 0;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: #1e293b;
+            color: white;
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.875em;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #f1f5f9;
+            color: #475569;
+            font-size: 0.9em;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 24px 0;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        
+        .feature-card:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .feature-card h4 {
+            color: #1e293b;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        
+        .feature-card p {
+            color: #64748b;
+            font-size: 0.9em;
+            margin-bottom: 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 40px;
+            margin: 24px 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2px;
+            top: 0.35em;
+            width: 12px;
+            height: 12px;
+            background: #2563eb;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px #e2e8f0, 0 2px 8px rgba(37, 99, 235, 0.2);
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 1.5em;
+            bottom: -38px;
+            width: 2px;
+            background: linear-gradient(to bottom, #e2e8f0 0%, transparent 100%);
+        }
+        
+        .timeline-item:last-child::after {
+            display: none;
+        }
+
+        .timeline-item h4 {
+            color: #1e293b;
+            margin-bottom: 8px;
+            margin-top: 0;
+        }
+        
+        .timeline-item p {
+            color: #64748b;
+        }
+
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .tech-item {
+            background: #f8fafc;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            border-left: 3px solid #2563eb;
+        }
+
+        .tech-item strong {
+            color: #1e293b;
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+        
+        .tech-item p,
+        .tech-item span,
+        .tech-item {
+            color: #64748b;
+            font-size: 0.9em;
+        }
+
+        .pricing-box {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+            padding: 48px 40px;
+            border-radius: 16px;
+            margin: 32px 0;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .pricing-box h3 {
+            color: white;
+            font-size: 1.5em;
+            margin-bottom: 12px;
+            font-weight: 600;
+            opacity: 0.95;
+        }
+
+        .pricing-box .amount {
+            font-size: 4em;
+            font-weight: 800;
+            margin: 16px 0;
+            letter-spacing: -2px;
+        }
+        
+        .pricing-box p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1em;
+            margin-bottom: 0;
+        }
+
+        .signature-section {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 50px;
+            margin: 50px 0;
+            padding-top: 30px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .signature-box {
+            text-align: center;
+        }
+
+        .signature-line {
+            border-top: 2px solid #333;
+            margin: 50px 0 10px 0;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin: 4px 4px 4px 0;
+            letter-spacing: 0.3px;
+        }
+
+        .badge-success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+
+        .badge-info {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #93c5fd;
+        }
+
+        .badge-warning {
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fde68a;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        @media screen {
+            body {
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        .icon {
+            margin-right: 8px;
+        }
+
+        .diagram {
+            font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
+            background: #f8fafc;
+            padding: 24px;
+            border-radius: 8px;
+            margin: 24px 0;
+            white-space: pre;
+            overflow-x: auto;
+            border: 1px solid #e2e8f0;
+            font-size: 0.85em;
+            line-height: 1.6;
+            color: #334155;
+        }
+        
+        .architecture-diagram {
+            background: #f8fafc;
+            padding: 40px 24px;
+            border-radius: 12px;
+            margin: 24px 0;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .arch-box {
+            background: white;
+            border: 2px solid #2563eb;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 0 auto;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.1);
+            position: relative;
+            max-width: 280px;
+        }
+        
+        .arch-box h4 {
+            color: #1e293b;
+            font-size: 1.1em;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+        
+        .arch-box p {
+            color: #64748b;
+            font-size: 0.85em;
+            margin: 0;
+            line-height: 1.5;
+            text-align: center;
+        }
+        
+        .arch-arrow {
+            text-align: center;
+            margin: 16px 0;
+            color: #2563eb;
+            font-size: 1.2em;
+        }
+        
+        .arch-arrow::before {
+            content: '↓';
+            display: block;
+            font-size: 1.5em;
+            line-height: 1;
+        }
+        
+        .arch-arrow-label {
+            font-size: 0.75em;
+            color: #64748b;
+            margin-top: 4px;
+            font-weight: 500;
+        }
+        
+        .arch-connections {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 16px 0;
+            flex-wrap: wrap;
+        }
+        
+        .arch-connection-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #64748b;
+            font-size: 0.85em;
+        }
+        
+        .arch-connection-item::before {
+            content: '→';
+            color: #2563eb;
+            font-weight: bold;
+        }
+        
+        .arch-horizontal-arrow {
+            text-align: center;
+            margin: 16px 0;
+            color: #2563eb;
+        }
+        
+        .arch-horizontal-arrow::before {
+            content: '→';
+            display: inline-block;
+            font-size: 1.5em;
+            line-height: 1;
+        }
+        
+        .arch-horizontal-arrow-label {
+            font-size: 0.75em;
+            color: #64748b;
+            margin-top: 4px;
+            font-weight: 500;
+        }
+        
+        .file-tree {
+            background: #f8fafc;
+            padding: 24px;
+            border-radius: 12px;
+            margin: 24px 0;
+            border: 1px solid #e2e8f0;
+            font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
+        }
+        
+        .tree-root {
+            color: #1e293b;
+            font-weight: 600;
+            font-size: 0.95em;
+            margin-bottom: 12px;
+        }
+        
+        .tree-folder {
+            margin: 8px 0;
+            padding-left: 0;
+        }
+        
+        .tree-folder-name {
+            color: #2563eb;
+            font-weight: 600;
+            font-size: 0.9em;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .tree-folder-name::before {
+            content: '\f07b';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 0.85em;
+            color: #2563eb;
+        }
+        
+        .tree-item {
+            margin: 4px 0;
+            padding-left: 24px;
+            color: #475569;
+            font-size: 0.85em;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            line-height: 1.6;
+        }
+        
+        .tree-item::before {
+            content: '├─';
+            color: #cbd5e1;
+            margin-right: 4px;
+        }
+        
+        .tree-item:last-child::before {
+            content: '└─';
+        }
+        
+        .tree-item-name {
+            color: #1e293b;
+            font-weight: 500;
+        }
+        
+        .tree-item-comment {
+            color: #64748b;
+            font-style: italic;
+        }
+        
+        .tree-file {
+            margin: 4px 0;
+            padding-left: 24px;
+            color: #475569;
+            font-size: 0.85em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .tree-file::before {
+            content: '\f15b';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 400;
+            font-size: 0.8em;
+            color: #64748b;
+        }
+        
+        .tree-file-name {
+            color: #1e293b;
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="document-wrapper">
+    <!-- COVER PAGE -->
+    <div class="cover-page no-break">
+        <h1>ViaFlow</h1>
+        <h2>Dispatch & Quote Management System</h2>
+        <div class="cover-info">
+            <p><strong>Software Development Proposal</strong></p>
+            <p>Prepared for: VIA Fahrdienst GmbH</p>
+            <p>Date: January 2025</p>
+            <p>Version: 1.0</p>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- TABLE OF CONTENTS -->
+    <div class="no-break">
+        <h1>Table of Contents</h1>
+        <ol style="line-height: 2; font-size: 1.1em;">
+            <li>Executive Summary</li>
+            <li>About This Proposal</li>
+            <li>Client's Needs & Challenges</li>
+            <li>Proposed Solution</li>
+            <li>System Architecture</li>
+            <li>Technology Stack</li>
+            <li>Project Scope & Deliverables</li>
+            <li>Implementation Timeline</li>
+            <li>Key Features & Functionality</li>
+            <li>Budget & Pricing</li>
+            <li>Technical Approach</li>
+            <li>Security & Compliance</li>
+            <li>Benefits & ROI</li>
+            <li>Terms & Conditions</li>
+            <li>Next Steps</li>
+        </ol>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- 1. EXECUTIVE SUMMARY -->
+    <div class="no-break">
+        <h1>1. Executive Summary</h1>
+
+        <div class="highlight-box">
+            <h3>Project Overview</h3>
+            <p>ViaFlow is a comprehensive dispatch and quote management system designed specifically for transportation
+                services specializing in disabled, senior, and specialized passenger transport. This modern, cloud-based
+                solution will streamline operations, automate quote generation, and improve service delivery through
+                real-time tracking and communication.</p>
+        </div>
+
+        <h3>Key Objectives</h3>
+        <ul>
+            <li><strong>Automate Quote Generation:</strong> Intelligent pricing engine with distance calculation,
+                surcharges, and custom rules</li>
+            <li><strong>Streamline Dispatch:</strong> Efficient driver assignment and real-time ride tracking</li>
+            <li><strong>Enhance Customer Experience:</strong> Automated communications, transparent pricing, and easy
+                booking</li>
+            <li><strong>Improve Operations:</strong> Centralized dashboard, recurring trip management, and comprehensive
+                reporting</li>
+            <li><strong>Mobile Accessibility:</strong> Native mobile app for drivers with offline capabilities</li>
+        </ul>
+
+        <h3>System Components</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4><i class="fas fa-desktop icon"></i>Admin Dashboard</h4>
+                <p>Web-based platform for managing requests, quotes, assignments, and reporting</p>
+            </div>
+            <div class="feature-card">
+                <h4><i class="fas fa-mobile-alt icon"></i>Driver Mobile App</h4>
+                <p>React Native app for accepting rides and updating status in real-time</p>
+            </div>
+            <div class="feature-card">
+                <h4><i class="fas fa-cogs icon"></i>Backend API</h4>
+                <p>Robust server handling business logic, pricing engine, and integrations</p>
+            </div>
+            <div class="feature-card">
+                <h4><i class="fas fa-database icon"></i>Database & Queue</h4>
+                <p>PostgreSQL database with Redis for background job processing</p>
+            </div>
+        </div>
+
+        <div class="success-box">
+            <h3><i class="fas fa-check-circle icon"></i>Expected Outcomes</h3>
+            <ul>
+                <li><strong>50% reduction</strong> in quote generation time</li>
+                <li><strong>Real-time visibility</strong> into all operations</li>
+                <li><strong>Automated recurring bookings</strong> for regular customers</li>
+                <li><strong>Comprehensive audit trail</strong> for compliance (GDPR-ready)</li>
+                <li><strong>Scalable architecture</strong> for future growth</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- 2. ABOUT THIS PROPOSAL -->
+    <div class="no-break">
+        <h1>2. About This Proposal</h1>
+
+        <h3>Purpose</h3>
+        <p>This proposal outlines a comprehensive software solution tailored to VIA Fahrdienst GmbH's unique transportation service
+            needs. We understand the complexity of managing specialized passenger transport, and our solution addresses
+            the specific challenges faced by your operations.</p>
+
+        <h3>Our Approach</h3>
+        <p>We propose a modern, type-safe monorepo architecture using industry-leading technologies. This approach
+            ensures:</p>
+        <ul>
+            <li><strong>Maintainability:</strong> Shared code and consistent patterns across all applications</li>
+            <li><strong>Type Safety:</strong> End-to-end TypeScript with tRPC for bulletproof APIs</li>
+            <li><strong>Scalability:</strong> Cloud-native architecture that grows with your business</li>
+            <li><strong>Developer Experience:</strong> Fast development cycles with hot reloading and automated testing
+            </li>
+        </ul>
+
+        <h3>Why Choose Our Solution</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>Modern Technology Stack</h4>
+                <p>Built with Next.js, React Native, and Node.js - proven technologies used by industry leaders</p>
+            </div>
+            <div class="feature-card">
+                <h4>GDPR Compliant</h4>
+                <p>EU-hosted infrastructure with encryption at rest and in transit, full audit logging</p>
+            </div>
+            <div class="feature-card">
+                <h4>Real-time Capabilities</h4>
+                <p>WebSocket integration for live status updates across dashboard and mobile app</p>
+            </div>
+            <div class="feature-card">
+                <h4>Extensible Architecture</h4>
+                <p>Modular design allows for easy addition of new features and integrations</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- 3. CLIENT'S NEEDS & CHALLENGES -->
+    <div class="no-break">
+        <h1>3. Client's Needs & Challenges</h1>
+
+        <h3>Current Challenges</h3>
+
+        <div class="timeline-item">
+            <h4>Manual Quote Generation</h4>
+            <p>Creating quotes manually is time-consuming and prone to errors. Calculating distances, applying
+                surcharges, and managing pricing rules requires significant staff time.</p>
+        </div>
+
+        <div class="timeline-item">
+            <h4>Lack of Real-time Visibility</h4>
+            <p>Dispatchers cannot see driver locations or ride status in real-time, making it difficult to respond to
+                customer inquiries or handle last-minute changes.</p>
+        </div>
+
+        <div class="timeline-item">
+            <h4>Recurring Trip Management</h4>
+            <p>Managing recurring trips for regular customers (e.g., weekly dialysis appointments) is complex and
+                requires manual scheduling each time.</p>
+        </div>
+
+        <div class="timeline-item">
+            <h4>Limited Automation</h4>
+            <p>Most processes are manual, from initial customer requests to final invoicing, leading to inefficiencies
+                and potential for human error.</p>
+        </div>
+
+        <div class="timeline-item">
+            <h4>Communication Gaps</h4>
+            <p>Coordinating between office staff, drivers, and customers through phone calls and text messages is
+                inefficient and lacks documentation.</p>
+        </div>
+
+        <div class="timeline-item">
+            <h4>Compliance Requirements</h4>
+            <p>GDPR compliance and audit trail requirements need systematic tracking of all data access and
+                modifications.</p>
+        </div>
+
+        <h3>Your Goals</h3>
+
+        <h4>Immediate Goals</h4>
+        <ul>
+            <li>Automate quote generation with intelligent pricing engine</li>
+            <li>Implement centralized dashboard for request and quote management</li>
+            <li>Enable secure customer quote acceptance via email links</li>
+            <li>Streamline driver assignment and dispatch processes</li>
+        </ul>
+
+        <h4>Short-Term Goals (3-6 months)</h4>
+        <ul>
+            <li>Deploy mobile app for drivers with real-time status updates</li>
+            <li>Implement recurring trip scheduling and management</li>
+            <li>Generate comprehensive reports and analytics</li>
+            <li>Integrate with mapping services for accurate distance calculation</li>
+        </ul>
+
+        <h4>Long-Term Goals (6-12 months)</h4>
+        <ul>
+            <li>Add customer self-service portal for booking and tracking</li>
+            <li>Implement payment processing integration</li>
+            <li>Expand to multiple vehicle types and service areas</li>
+            <li>Achieve 99.9% system uptime with robust monitoring</li>
+        </ul>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- 4. PROPOSED SOLUTION -->
+    <div class="no-break">
+        <h1>4. Proposed Solution</h1>
+
+        <p>We propose a comprehensive, cloud-based dispatch and quote management system built as a modern monorepo
+            application. The solution consists of three main components working seamlessly together:</p>
+
+        <h3>System Components</h3>
+
+        <h4>1. Admin Dashboard (Web Application)</h4>
+        <p>A responsive web application built with Next.js 14+ providing:</p>
+        <ul>
+            <li><strong>Request Management:</strong> View, edit, and assign customer transportation requests</li>
+            <li><strong>Quote Generation:</strong> Auto-calculated quotes with manual override capability</li>
+            <li><strong>Driver Assignment:</strong> Assign vehicles and drivers to approved quotes</li>
+            <li><strong>Real-time Tracking:</strong> Monitor ride status and driver locations</li>
+            <li><strong>User Management:</strong> Role-based access control (Admin, Employee, Driver)</li>
+            <li><strong>Reporting:</strong> Comprehensive analytics and reporting tools</li>
+            <li><strong>Recurring Schedules:</strong> Manage recurring trips and auto-generate rides</li>
+        </ul>
+
+        <h4>2. Driver Mobile App (React Native)</h4>
+        <p>A native mobile application for iOS and Android providing:</p>
+        <ul>
+            <li><strong>Assignment Notifications:</strong> Push notifications for new ride assignments</li>
+            <li><strong>Ride Management:</strong> Accept/decline assignments and view ride details</li>
+            <li><strong>Status Updates:</strong> Update ride status (En Route, Arrived, In Progress, Completed)</li>
+            <li><strong>Navigation Integration:</strong> One-tap navigation to pickup/dropoff locations</li>
+            <li><strong>Customer Communication:</strong> Click-to-call functionality</li>
+            <li><strong>Offline Capability:</strong> View assigned rides without internet connection</li>
+        </ul>
+
+        <h4>3. Backend API (Node.js + tRPC)</h4>
+        <p>A robust API server handling all business logic:</p>
+        <ul>
+            <li><strong>Pricing Engine:</strong> Intelligent quote calculation with distance, time, and surcharges</li>
+            <li><strong>Authentication:</strong> Secure user authentication with better-auth</li>
+            <li><strong>Real-time Updates:</strong> WebSocket connections for live status synchronization</li>
+            <li><strong>Task Queue:</strong> Background job processing for emails, PDFs, and notifications</li>
+            <li><strong>Audit Logging:</strong> Comprehensive logging of all system actions</li>
+            <li><strong>API Integration:</strong> Connect with mapping, email, and SMS services</li>
+        </ul>
+
+        <div class="highlight-box">
+            <h3>Key Innovation: Intelligent Pricing Engine</h3>
+            <p>Our proprietary pricing engine automatically calculates accurate quotes based on:</p>
+            <ul>
+                <li>Distance and estimated travel time from routing APIs</li>
+                <li>Vehicle type and capacity requirements</li>
+                <li>Time-based surcharges (night, weekend, holiday)</li>
+                <li>Location-based surcharges (airport, train station)</li>
+                <li>Waiting time and multiple stops</li>
+                <li>Custom pricing rules and discounts</li>
+            </ul>
+            <p>Employees can review and manually adjust any quote before sending to customers.</p>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- 5. SYSTEM ARCHITECTURE -->
+    <div class="no-break">
+        <h1>5. System Architecture</h1>
+
+        <div class="highlight-box">
+            <h3>Architecture Overview</h3>
+            <div class="architecture-diagram">
+                <div class="arch-box">
+                    <h4><i class="fas fa-desktop icon"></i>Admin Dashboard</h4>
+                    <p>Next.js Web App</p>
+                </div>
+                
+                <div class="arch-arrow">
+                    <div class="arch-arrow-label">HTTP/tRPC</div>
+                </div>
+                
+                <div class="arch-box">
+                    <h4><i class="fas fa-server icon"></i>Backend API</h4>
+                    <p>Node.js + tRPC</p>
+                </div>
+                
+                <div class="arch-connections">
+                    <div class="arch-connection-item">PostgreSQL (Database - Neon, Frankfurt)</div>
+                    <div class="arch-connection-item">Redis (Task Queue - Upstash, Frankfurt)</div>
+                </div>
+                
+                <div class="arch-arrow">
+                    <div class="arch-arrow-label">WebSocket</div>
+                </div>
+                
+                <div class="arch-box">
+                    <h4><i class="fas fa-mobile-alt icon"></i>Driver App</h4>
+                    <p>React Native Mobile</p>
+                </div>
+            </div>
+        </div>
+
+        <h3>Component Communication</h3>
+        <table>
+            <tr>
+                <th>Connection</th>
+                <th>Protocol/Technology</th>
+                <th>Purpose</th>
+            </tr>
+            <tr>
+                <td>Dashboard ↔ API</td>
+                <td>tRPC (Type-safe RPC)</td>
+                <td>Data operations, mutations, queries</td>
+            </tr>
+            <tr>
+                <td>Driver App ↔ API</td>
+                <td>tRPC / REST</td>
+                <td>Assignment management, status updates</td>
+            </tr>
+            <tr>
+                <td>Real-time Updates</td>
+                <td>WebSocket (Socket.IO)</td>
+                <td>Live status synchronization</td>
+            </tr>
+            <tr>
+                <td>API ↔ Database</td>
+                <td>Prisma ORM</td>
+                <td>Type-safe database operations</td>
+            </tr>
+            <tr>
+                <td>Background Jobs</td>
+                <td>Redis + BullMQ</td>
+                <td>Email sending, PDF generation</td>
+            </tr>
+            <tr>
+                <td>Notifications</td>
+                <td>Email/Push/SMS</td>
+                <td>Customer & driver notifications</td>
+            </tr>
+        </table>
+
+        <h3>Data Flow Example: Customer Request to Completed Ride</h3>
+        <div class="timeline-item">
+            <h4>Step 1: Customer Submits Request</h4>
+            <p>Form submission <i class="fas fa-arrow-right"></i> Create CustomerRequest <i class="fas fa-arrow-right"></i> Generate Stops <i class="fas fa-arrow-right"></i> Send confirmation emails</p>
+        </div>
+        <div class="timeline-item">
+            <h4>Step 2: Employee Reviews</h4>
+            <p>Dashboard shows request <i class="fas fa-arrow-right"></i> Employee assigns to self <i class="fas fa-arrow-right"></i> Reviews details</p>
+        </div>
+        <div class="timeline-item">
+            <h4>Step 3: Quote Generation</h4>
+            <p>Pricing engine calculates <i class="fas fa-arrow-right"></i> Employee reviews <i class="fas fa-arrow-right"></i> Creates Quote (DRAFT status)</p>
+        </div>
+        <div class="timeline-item">
+            <h4>Step 4: Quote Approval</h4>
+            <p>Employee approves <i class="fas fa-arrow-right"></i> Generate PDF <i class="fas fa-arrow-right"></i> Send email with secure link <i class="fas fa-arrow-right"></i> Status: SENT</p>
+        </div>
+        <div class="timeline-item">
+            <h4>Step 5: Customer Acceptance</h4>
+            <p>Customer clicks link <i class="fas fa-arrow-right"></i> Selects payment method <i class="fas fa-arrow-right"></i> Accepts <i class="fas fa-arrow-right"></i> Status: ACCEPTED</p>
+        </div>
+        <div class="timeline-item">
+            <h4>Step 6: Ride Creation</h4>
+            <p>Employee assigns driver & vehicle <i class="fas fa-arrow-right"></i> Create Ride <i class="fas fa-arrow-right"></i> Notify driver <i class="fas fa-arrow-right"></i> Status: ASSIGNED</p>
+        </div>
+        <div class="timeline-item">
+            <h4>Step 7: Ride Execution</h4>
+            <p>Driver updates status <i class="fas fa-arrow-right"></i> Real-time sync <i class="fas fa-arrow-right"></i> Dashboard updates <i class="fas fa-arrow-right"></i> Status: COMPLETED</p>
+        </div>
+
+        <div class="info-box">
+            <h4><i class="fas fa-bolt icon"></i>Real-time Synchronization</h4>
+            <p>All status updates are instantly synchronized across the dashboard and driver app using WebSocket
+                connections, ensuring everyone has current information.</p>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- 6. TECHNOLOGY STACK -->
+    <div class="no-break">
+        <h1>6. Technology Stack</h1>
+
+        <h3>Frontend Technologies</h3>
+        <div class="tech-stack">
+            <div class="tech-item">
+                <strong>Dashboard Framework</strong>
+                Next.js 14+ with App Router
+            </div>
+            <div class="tech-item">
+                <strong>Mobile Framework</strong>
+                React Native with Expo (Managed workflow)
+            </div>
+            <div class="tech-item">
+                <strong>Language</strong>
+                TypeScript for type safety
+            </div>
+            <div class="tech-item">
+                <strong>UI Library</strong>
+                React 18+ with Server Components
+            </div>
+            <div class="tech-item">
+                <strong>Styling</strong>
+                Tailwind CSS
+            </div>
+            <div class="tech-item">
+                <strong>State Management</strong>
+                React Server Components + tRPC
+            </div>
+        </div>
+
+        <h3>Backend Technologies</h3>
+        <div class="tech-stack">
+            <div class="tech-item">
+                <strong>Runtime</strong>
+                Node.js 18+ LTS
+            </div>
+            <div class="tech-item">
+                <strong>API Framework</strong>
+                tRPC with Express
+            </div>
+            <div class="tech-item">
+                <strong>Language</strong>
+                TypeScript
+            </div>
+            <div class="tech-item">
+                <strong>Authentication</strong>
+                better-auth (password, magic links, 2FA)
+            </div>
+        </div>
+
+        <h3>Database & Storage</h3>
+        <div class="tech-stack">
+            <div class="tech-item">
+                <strong>Primary Database</strong>
+                PostgreSQL (Neon, Frankfurt region)
+            </div>
+            <div class="tech-item">
+                <strong>ORM</strong>
+                Prisma for type-safe queries
+            </div>
+            <div class="tech-item">
+                <strong>Migrations</strong>
+                Prisma Migrate
+            </div>
+            <div class="tech-item">
+                <strong>Cache & Queue</strong>
+                Redis (Upstash, Frankfurt region)
+            </div>
+            <div class="tech-item">
+                <strong>Task Processing</strong>
+                BullMQ for background jobs
+            </div>
+            <div class="tech-item">
+                <strong>Data Residency</strong>
+                100% EU-hosted (GDPR compliant)
+            </div>
+        </div>
+
+        <h3>Infrastructure & DevOps</h3>
+        <div class="tech-stack">
+            <div class="tech-item">
+                <strong>Monorepo Tool</strong>
+                Turborepo for workspace management
+            </div>
+            <div class="tech-item">
+                <strong>Package Manager</strong>
+                pnpm for efficient dependency management
+            </div>
+            <div class="tech-item">
+                <strong>Hosting</strong>
+                Vercel (Dashboard), Render/Fly.io (API)
+            </div>
+            <div class="tech-item">
+                <strong>CI/CD</strong>
+                GitHub Actions
+            </div>
+            <div class="tech-item">
+                <strong>Monitoring</strong>
+                Sentry for error tracking
+            </div>
+            <div class="tech-item">
+                <strong>Email Service</strong>
+                Postmark or AWS SES (EU region)
+            </div>
+        </div>
+
+        <h3>External Integrations</h3>
+        <div class="tech-stack">
+            <div class="tech-item">
+                <strong>Mapping & Routing</strong>
+                Google Maps API / Mapbox
+            </div>
+            <div class="tech-item">
+                <strong>SMS (Optional)</strong>
+                Twilio for customer notifications
+            </div>
+            <div class="tech-item">
+                <strong>Push Notifications</strong>
+                Expo Push / Firebase Cloud Messaging
+            </div>
+            <div class="tech-item">
+                <strong>PDF Generation</strong>
+                Puppeteer / PDFKit
+            </div>
+        </div>
+
+        <div class="success-box">
+            <h3><i class="fas fa-check-circle icon"></i>Why These Technologies?</h3>
+            <ul>
+                <li><strong>Type Safety:</strong> TypeScript + tRPC + Prisma = Zero runtime errors from type mismatches
+                </li>
+                <li><strong>Developer Experience:</strong> Hot reloading, excellent tooling, and large community support
+                </li>
+                <li><strong>Performance:</strong> Server-side rendering, edge deployment, and optimized builds</li>
+                <li><strong>Scalability:</strong> Serverless-ready architecture that scales automatically</li>
+                <li><strong>Maintainability:</strong> Monorepo structure with shared packages and consistent patterns
+                </li>
+                <li><strong>Compliance:</strong> EU-hosted infrastructure meeting GDPR requirements</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- 7. PROJECT SCOPE & DELIVERABLES -->
+    <div class="no-break">
+        <h1>7. Project Scope & Deliverables</h1>
+
+        <h3>Phase 1: Foundation & MVP (10-12 Weeks)</h3>
+
+        <h4>Week 1: Setup & Planning</h4>
+        <ul>
+            <li>Initialize Turborepo monorepo structure</li>
+            <li>Set up shared packages (types, config, db, auth, utils)</li>
+            <li>Configure PostgreSQL (Neon) and Redis (Upstash)</li>
+            <li>Create Prisma schema and initial migrations</li>
+            <li>Set up development environment and tooling</li>
+            <li>Configure CI/CD pipelines</li>
+        </ul>
+        <span class="badge badge-success"><i class="fas fa-check icon"></i>Completed</span>
+
+        <h4>Week 2-5: Backend API Core</h4>
+        <ul>
+            <li>Implement complete Prisma data model</li>
+            <li>Build tRPC router structure</li>
+            <li>Create CustomerRequest endpoints (public & protected)</li>
+            <li>Develop intelligent pricing engine with:
+                <ul>
+                    <li>Distance/time calculation via routing APIs</li>
+                    <li>Surcharge rules (night, airport, waiting time)</li>
+                    <li>Vehicle type pricing</li>
+                    <li>Custom pricing rules management</li>
+                </ul>
+            </li>
+            <li>Build quote generation and management endpoints</li>
+            <li>Implement Redis + BullMQ for background jobs</li>
+            <li>Set up email notifications (Postmark/SES)</li>
+            <li>Create comprehensive audit logging</li>
+            <li>Implement better-auth authentication</li>
+            <li>Write API unit and integration tests</li>
+        </ul>
+        <span class="badge badge-info">In Progress</span>
+
+        <h4>Week 4-8: Dashboard UI</h4>
+        <ul>
+            <li>Build Next.js dashboard application</li>
+            <li>Implement authentication UI (login, password reset)</li>
+            <li>Create request management views:
+                <ul>
+                    <li>Request list with filtering and search</li>
+                    <li>Request detail page</li>
+                    <li>Request creation/editing</li>
+                </ul>
+            </li>
+            <li>Build quote editor:
+                <ul>
+                    <li>Display auto-generated quotes</li>
+                    <li>Manual override capability</li>
+                    <li>Price breakdown visualization</li>
+                    <li>Quote approval workflow</li>
+                </ul>
+            </li>
+            <li>Create driver assignment interface</li>
+            <li>Build user management (admin only)</li>
+            <li>Implement real-time updates via WebSocket</li>
+            <li>Create basic reporting dashboard</li>
+            <li>Ensure responsive design for all screen sizes</li>
+        </ul>
+        <span class="badge badge-warning">Planned</span>
+
+        <h4>Week 8-10: Integration & Refinement</h4>
+        <ul>
+            <li>End-to-end integration testing</li>
+            <li>E2E tests with Playwright</li>
+            <li>Performance optimization and load testing</li>
+            <li>Security audit and penetration testing</li>
+            <li>Deploy to staging environment</li>
+            <li>User acceptance testing preparation</li>
+            <li>Bug fixes and refinements</li>
+        </ul>
+        <span class="badge badge-warning">Planned</span>
+
+        <h4>Week 11-12: Production Deployment</h4>
+        <ul>
+            <li>Production environment setup</li>
+            <li>Database migration to production</li>
+            <li>Final security review</li>
+            <li>User acceptance testing</li>
+            <li>Production deployment</li>
+            <li>Monitor system and address any issues</li>
+        </ul>
+        <span class="badge badge-warning">Planned</span>
+
+        <h3>Phase 2: Driver App (6-8 Weeks - Weeks 13-20)</h3>
+        <ul>
+            <li>Initialize React Native app with Expo</li>
+            <li>Implement driver authentication</li>
+            <li>Build assignment list and detail views</li>
+            <li>Create ride acceptance workflow</li>
+            <li>Implement status update interface (En Route, Arrived, etc.)</li>
+            <li>Add navigation integration (Google Maps/Apple Maps)</li>
+            <li>Implement push notifications</li>
+            <li>Add offline capability for viewing assignments</li>
+            <li>Testing on iOS and Android devices</li>
+            <li>App store submission (if applicable)</li>
+        </ul>
+        <span class="badge badge-warning">Phase 2</span>
+
+        <h3>Deliverables Summary</h3>
+        <table>
+            <tr>
+                <th>Deliverable</th>
+                <th>Description</th>
+                <th>Timeline</th>
+            </tr>
+            <tr>
+                <td>Admin Dashboard</td>
+                <td>Fully functional web application for managing all operations</td>
+                <td>Week 8</td>
+            </tr>
+            <tr>
+                <td>Backend API</td>
+                <td>Complete API with pricing engine, auth, and integrations</td>
+                <td>Week 5</td>
+            </tr>
+            <tr>
+                <td>Driver Mobile App</td>
+                <td>React Native app for iOS and Android</td>
+                <td>Week 20</td>
+            </tr>
+            <tr>
+                <td>Database Schema</td>
+                <td>Complete data model with migrations</td>
+                <td>Week 2</td>
+            </tr>
+            <tr>
+                <td>Deployment</td>
+                <td>Production deployment with monitoring</td>
+                <td>Week 12</td>
+            </tr>
+        </table>
+
+        <h3>Out of Scope (Future Enhancements)</h3>
+        <ul>
+            <li>Customer self-service portal</li>
+            <li>Payment processing integration</li>
+            <li>Advanced analytics and business intelligence</li>
+            <li>Multi-language support</li>
+            <li>Integration with accounting software</li>
+            <li>Vehicle maintenance tracking</li>
+        </ul>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- 8. IMPLEMENTATION TIMELINE -->
+    <div class="no-break">
+        <h1>8. Implementation Timeline</h1>
+
+        <h3>Project Duration: 16-20 Weeks (Phase 1 + Phase 2)</h3>
+        <p>The following timeline represents our estimated schedule for delivering Phase 1 (MVP) and Phase 2 (Driver Mobile App) with all core functionality.</p>
+
+        <table>
+            <tr>
+                <th style="width: 20%;">Week</th>
+                <th style="width: 40%;">Milestone</th>
+                <th style="width: 40%;">Key Activities</th>
+            </tr>
+            <tr>
+                <td><strong>Week 1</strong></td>
+                <td>Project Kickoff & Foundation</td>
+                <td>
+                    • Monorepo setup<br>
+                    • Database configuration<br>
+                    • Team alignment meeting<br>
+                    • Development environment setup
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Week 2</strong></td>
+                <td>Backend Core Development</td>
+                <td>
+                    • Prisma schema implementation<br>
+                    • tRPC router structure<br>
+                    • Authentication setup<br>
+                    • Basic CRUD operations
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Week 3</strong></td>
+                <td>Pricing Engine & Quote System</td>
+                <td>
+                    • Pricing engine development<br>
+                    • Quote generation logic<br>
+                    • Email notification system<br>
+                    • Background job processing
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Week 4</strong></td>
+                <td>Dashboard UI - Phase 1</td>
+                <td>
+                    • Authentication UI<br>
+                    • Request management views<br>
+                    • Quote editor interface<br>
+                    • Real-time updates integration
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Week 5</strong></td>
+                <td>Dashboard UI - Phase 2</td>
+                <td>
+                    • Driver assignment UI<br>
+                    • Ride management interface<br>
+                    • User management<br>
+                    • Reporting dashboard
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Week 6</strong></td>
+                <td>Integration & Testing</td>
+                <td>
+                    • Integration testing<br>
+                    • E2E test suite<br>
+                    • Performance optimization<br>
+                    • Staging deployment
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Week 7</strong></td>
+                <td>UAT & Refinement</td>
+                <td>
+                    • User acceptance testing<br>
+                    • Bug fixes<br>
+                    • Security audit<br>
+                    • Documentation completion
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Week 8-10</strong></td>
+                <td>Refinement & UAT</td>
+                <td>
+                    • User acceptance testing<br>
+                    • Bug fixes and refinements<br>
+                    • Performance optimization<br>
+                    • Security review
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Week 11-12</strong></td>
+                <td>Production Launch (Phase 1)</td>
+                <td>
+                    • Production deployment<br>
+                    • Go-live support<br>
+                    • Post-launch monitoring<br>
+                    • Phase 1 completion
+                </td>
+            </tr>
+            <tr style="background: #eff6ff;">
+                <td colspan="3" style="text-align: center; font-weight: bold; padding: 15px;">
+                    Phase 2: Driver Mobile App (Weeks 13-20)
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Week 13-14</strong></td>
+                <td>Mobile App Setup & Core Features</td>
+                <td>
+                    • React Native app initialization<br>
+                    • Authentication integration<br>
+                    • Assignment list view<br>
+                    • Basic status updates
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Week 15-16</strong></td>
+                <td>Advanced Features</td>
+                <td>
+                    • Ride detail view<br>
+                    • Navigation integration<br>
+                    • Push notifications<br>
+                    • Offline capability
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Week 17-18</strong></td>
+                <td>Testing & Refinement</td>
+                <td>
+                    • Device testing (iOS & Android)<br>
+                    • Bug fixes<br>
+                    • Performance optimization<br>
+                    • User feedback integration
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Week 19-20</strong></td>
+                <td>Deployment & Launch</td>
+                <td>
+                    • App store submission<br>
+                    • Production deployment<br>
+                    • Final testing<br>
+                    • Project completion
+                </td>
+            </tr>
+        </table>
+
+        <h3>Critical Path Items</h3>
+        <div class="highlight-box">
+            <ul>
+                <li><strong>Database Schema:</strong> Must be finalized by Week 2 to avoid costly migrations</li>
+                <li><strong>Pricing Engine:</strong> Core business logic must be validated by Week 3</li>
+                <li><strong>Authentication:</strong> Security implementation must be completed before UAT</li>
+                <li><strong>Real-time Features:</strong> WebSocket integration needed for Phase 2 driver app</li>
+            </ul>
+        </div>
+
+        <h3>Phase 2 Timeline (Driver App): 6-8 Weeks</h3>
+        <p>Following successful Phase 1 launch, Phase 2 will focus on the driver mobile application (Weeks 13-20):</p>
+        <ul>
+            <li><strong>Week 13-16:</strong> Core app development and features</li>
+            <li><strong>Week 17-18:</strong> Testing on physical devices (iOS & Android)</li>
+            <li><strong>Week 19-20:</strong> App store submission and deployment</li>
+        </ul>
+
+        <div class="info-box">
+            <h4><i class="fas fa-calendar icon"></i>Key Dates</h4>
+            <ul>
+                <li><strong>Project Kickoff:</strong> TBD (upon contract signing)</li>
+                <li><strong>Phase 1 Completion:</strong> 10-12 weeks from kickoff</li>
+                <li><strong>Phase 2 Completion:</strong> 16-20 weeks from kickoff</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- 9. KEY FEATURES & FUNCTIONALITY -->
+    <div class="no-break">
+        <h1>9. Key Features & Functionality</h1>
+
+        <h3>1. Customer Request Management</h3>
+        <div class="feature-card" style="margin: 15px 0;">
+            <h4>Public Request Intake</h4>
+            <ul>
+                <li>Web form for customer submissions</li>
+                <li>Support for one-way, round-trip, and multi-stop trips</li>
+                <li>Recurring trip scheduling (daily, weekly, custom)</li>
+                <li>Wheelchair and special assistance options</li>
+                <li>Automatic customer creation/lookup by email</li>
+                <li>Confirmation emails sent automatically</li>
+            </ul>
+        </div>
+
+        <div class="feature-card" style="margin: 15px 0;">
+            <h4>Employee Request Management</h4>
+            <ul>
+                <li>Centralized dashboard of all requests</li>
+                <li>Filter and search capabilities</li>
+                <li>Request assignment to employees</li>
+                <li>Edit and update request details</li>
+                <li>View complete request history</li>
+                <li>Audit trail of all changes</li>
+            </ul>
+        </div>
+
+        <h3>2. Intelligent Quote Generation</h3>
+        <div class="highlight-box">
+            <h4>Automated Pricing Engine</h4>
+            <p>Our proprietary pricing engine calculates quotes automatically based on multiple factors:</p>
+
+            <h4>Base Calculation</h4>
+            <ul>
+                <li><strong>Distance:</strong> Calculated via Google Maps/Mapbox routing API</li>
+                <li><strong>Travel Time:</strong> Estimated duration for the journey</li>
+                <li><strong>Base Fee:</strong> Configurable flat rate per trip</li>
+                <li><strong>Per-Kilometer Rate:</strong> Distance-based pricing</li>
+                <li><strong>Per-Minute Rate:</strong> Time-based pricing component</li>
+            </ul>
+
+            <h4>Automatic Surcharges</h4>
+            <ul>
+                <li><strong>Night Surcharge:</strong> 22:00 - 06:00 (configurable percentage)</li>
+                <li><strong>Airport Surcharge:</strong> Automatic detection of airport locations</li>
+                <li><strong>Waiting Time:</strong> Per-minute charges for delays</li>
+                <li><strong>Multiple Stops:</strong> Additional fee per intermediate stop</li>
+                <li><strong>Holiday Pricing:</strong> Special rates for holidays</li>
+            </ul>
+
+            <h4>Manual Override</h4>
+            <ul>
+                <li>Employees can adjust any quote component</li>
+                <li>Reason logging for manual changes</li>
+                <li>Price history and audit trail</li>
+                <li>Discount application with approval workflow</li>
+            </ul>
+        </div>
+
+        <h3>3. Quote Management Workflow</h3>
+        <div class="timeline-item">
+            <h4>Draft <i class="fas fa-arrow-right"></i> Sent <i class="fas fa-arrow-right"></i> Accepted/Rejected</h4>
+            <p>Complete lifecycle management:</p>
+            <ul>
+                <li>Create quote (DRAFT status)</li>
+                <li>Review and adjust pricing</li>
+                <li>Generate PDF quote document</li>
+                <li>Send via email with secure acceptance link</li>
+                <li>Customer accepts or rejects via secure link</li>
+                <li>Payment method selection (Cash, Card, Bank Transfer)</li>
+                <li>Automatic quote expiration after validity period</li>
+            </ul>
+        </div>
+
+        <h3>4. Recurring Trip Management</h3>
+        <div class="success-box">
+            <h4>Automated Scheduling</h4>
+            <p>Perfect for regular customers with recurring appointments:</p>
+            <ul>
+                <li>Define recurring schedule (days of week, frequency)</li>
+                <li>Set start and end dates</li>
+                <li>Automatic ride generation for future dates</li>
+                <li>Pause or modify schedules as needed</li>
+                <li>Individual ride customization within recurring schedule</li>
+                <li>Bulk assignment of drivers and vehicles</li>
+            </ul>
+        </div>
+
+        <h3>5. Driver & Vehicle Assignment</h3>
+        <ul>
+            <li>View available drivers and vehicles</li>
+            <li>Assign based on vehicle requirements (wheelchair accessibility)</li>
+            <li>Schedule assignments in advance</li>
+            <li>Automatic driver notifications</li>
+            <li>Reassignment capability</li>
+            <li>Driver availability management</li>
+        </ul>
+
+        <h3>6. Real-time Ride Tracking</h3>
+        <div class="feature-card" style="margin: 15px 0;">
+            <h4>Live Status Updates</h4>
+            <ul>
+                <li><strong>ASSIGNED:</strong> Driver and vehicle assigned to ride</li>
+                <li><strong>ACCEPTED:</strong> Driver accepts the assignment</li>
+                <li><strong>EN_ROUTE:</strong> Driver heading to pickup location</li>
+                <li><strong>ARRIVED:</strong> Driver at pickup location</li>
+                <li><strong>IN_PROGRESS:</strong> Ride in progress</li>
+                <li><strong>COMPLETED:</strong> Ride successfully completed</li>
+                <li><strong>CANCELLED:</strong> Ride cancelled (with reason)</li>
+            </ul>
+            <p>All status changes are synchronized in real-time across dashboard and driver app via WebSocket.</p>
+        </div>
+
+        <h3>7. Communication & Notifications</h3>
+        <table>
+            <tr>
+                <th>Event</th>
+                <th>Notification Sent To</th>
+                <th>Channel</th>
+            </tr>
+            <tr>
+                <td>New Request Submitted</td>
+                <td>All Employees, Customer</td>
+                <td>Email</td>
+            </tr>
+            <tr>
+                <td>Quote Sent</td>
+                <td>Customer</td>
+                <td>Email + PDF</td>
+            </tr>
+            <tr>
+                <td>Quote Accepted</td>
+                <td>Assigned Employee</td>
+                <td>Email</td>
+            </tr>
+            <tr>
+                <td>Ride Assigned</td>
+                <td>Driver</td>
+                <td>Push + Email</td>
+            </tr>
+            <tr>
+                <td>Driver En Route</td>
+                <td>Customer (optional)</td>
+                <td>SMS/Email</td>
+            </tr>
+            <tr>
+                <td>Driver Arrived</td>
+                <td>Customer (optional)</td>
+                <td>SMS/Email</td>
+            </tr>
+            <tr>
+                <td>Ride Completed</td>
+                <td>Employee, Customer</td>
+                <td>Email</td>
+            </tr>
+        </table>
+
+        <h3>8. User Management & Security</h3>
+        <div class="highlight-box">
+            <h4>Role-Based Access Control</h4>
+            <ul>
+                <li><strong>Admin:</strong> Full system access, user management, system configuration</li>
+                <li><strong>Employee:</strong> Manage requests, quotes, and assignments</li>
+                <li><strong>Driver:</strong> View assigned rides, update status, navigation</li>
+            </ul>
+
+            <h4>Security Features</h4>
+            <ul>
+                <li>Secure password hashing with better-auth</li>
+                <li>Two-factor authentication (2FA) support</li>
+                <li>Magic link passwordless login option</li>
+                <li>Session management with automatic timeout</li>
+                <li>Secure quote acceptance tokens (JWT)</li>
+                <li>Comprehensive audit logging</li>
+                <li>GDPR-compliant data handling</li>
+            </ul>
+        </div>
+
+        <h3>9. Reporting & Analytics</h3>
+        <ul>
+            <li>Request volume by date range</li>
+            <li>Quote conversion rates</li>
+            <li>Driver performance metrics</li>
+            <li>Revenue reports by service type</li>
+            <li>Customer booking history</li>
+            <li>Popular routes and destinations</li>
+            <li>Export to CSV/Excel</li>
+        </ul>
+
+        <h3>10. Mobile Driver App Features</h3>
+        <div class="feature-card" style="margin: 15px 0;">
+            <h4>Core Functionality</h4>
+            <ul>
+                <li>Push notifications for new assignments</li>
+                <li>Accept or decline ride assignments</li>
+                <li>View ride details (customer info, pickup/dropoff)</li>
+                <li>One-tap navigation to Google/Apple Maps</li>
+                <li>Click-to-call customer</li>
+                <li>Update ride status with one tap</li>
+                <li>View ride history and upcoming assignments</li>
+                <li>Offline mode for viewing assigned rides</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- 10. BUDGET & PRICING -->
+    <div class="no-break">
+        <h1>10. Budget & Pricing</h1>
+
+        <div class="pricing-box">
+            <h3>Total Project Investment</h3>
+            <div class="amount">€21,000</div>
+            <p style="font-size: 1.1em;">Complete MVP with Dashboard, Backend API & Driver Mobile App</p>
+        </div>
+
+        <h3>Pricing Breakdown</h3>
+        <table>
+            <tr>
+                <th style="width: 50%;">Component</th>
+                <th style="width: 20%;">Cost</th>
+                <th style="width: 30%;">Description</th>
+            </tr>
+            <tr>
+                <td><strong>Project Setup & Planning</strong></td>
+                <td>€1,500</td>
+                <td>Monorepo setup, database configuration, development environment</td>
+            </tr>
+            <tr>
+                <td><strong>Backend API Development</strong></td>
+                <td>€7,000</td>
+                <td>tRPC API, pricing engine, authentication, integrations, background jobs</td>
+            </tr>
+            <tr>
+                <td><strong>Dashboard UI Development</strong></td>
+                <td>€6,000</td>
+                <td>Next.js web application, all management interfaces, real-time updates</td>
+            </tr>
+            <tr>
+                <td><strong>Database & Data Modeling</strong></td>
+                <td>€500</td>
+                <td>Prisma schema, migrations, optimization</td>
+            </tr>
+            <tr>
+                <td colspan="3" style="background: #f5f5f5; text-align: center; font-weight: bold;">
+                    Phase 1 Total: €15,000
+                </td>
+            </tr>
+            <tr style="background: #eff6ff;">
+                <td><strong>Phase 2: Driver Mobile App</strong></td>
+                <td>€6,000</td>
+                <td>React Native app for iOS & Android (optional, separate phase)</td>
+            </tr>
+            <tr>
+                <td colspan="3" style="background: #f5f5f5; text-align: center; font-weight: bold;">
+                    Phase 1 + Phase 2 Total: €21,000
+                </td>
+            </tr>
+        </table>
+
+        <h3>Payment Schedule</h3>
+        <table>
+            <tr>
+                <th style="width: 30%;">Milestone</th>
+                <th style="width: 20%;">Percentage</th>
+                <th style="width: 20%;">Amount</th>
+                <th style="width: 30%;">Timing</th>
+            </tr>
+            <tr>
+                <td><strong>Contract Signing</strong></td>
+                <td>30%</td>
+                <td>€6,300</td>
+                <td>Upon agreement</td>
+            </tr>
+            <tr>
+                <td><strong>Backend Completion</strong></td>
+                <td>25%</td>
+                <td>€5,250</td>
+                <td>End of Week 5</td>
+            </tr>
+            <tr>
+                <td><strong>Dashboard Completion</strong></td>
+                <td>25%</td>
+                <td>€5,250</td>
+                <td>End of Week 8</td>
+            </tr>
+            <tr>
+                <td><strong>Production Launch (Phase 1)</strong></td>
+                <td>20%</td>
+                <td>€4,200</td>
+                <td>End of Week 12</td>
+            </tr>
+        </table>
+
+        <div class="info-box">
+            <h4><i class="fas fa-lightbulb icon"></i>Payment Terms</h4>
+            <ul>
+                <li>All payments due within <strong>14 days</strong> of invoice</li>
+                <li>Accepted payment methods: Bank transfer (SEPA), international wire</li>
+                <li>Invoices provided with detailed breakdown</li>
+                <li>VAT applicable as per EU regulations</li>
+            </ul>
+        </div>
+
+        <h3>Monthly Operating Costs (Estimated)</h3>
+        <p>The following represents estimated monthly costs for running the system after launch:</p>
+        <table>
+            <tr>
+                <th>Service</th>
+                <th>Provider</th>
+                <th>Est. Monthly Cost</th>
+            </tr>
+            <tr>
+                <td>Database (PostgreSQL)</td>
+                <td>Neon</td>
+                <td>€25 - €50</td>
+            </tr>
+            <tr>
+                <td>Redis (Task Queue)</td>
+                <td>Upstash</td>
+                <td>€10 - €20</td>
+            </tr>
+            <tr>
+                <td>Dashboard Hosting</td>
+                <td>Vercel</td>
+                <td>€20 - €40</td>
+            </tr>
+            <tr>
+                <td>API Hosting</td>
+                <td>Render/Fly.io</td>
+                <td>€25 - €50</td>
+            </tr>
+            <tr>
+                <td>Email Service</td>
+                <td>Postmark</td>
+                <td>€10 - €30</td>
+            </tr>
+            <tr>
+                <td>Maps API</td>
+                <td>Google Maps</td>
+                <td>€50 - €150</td>
+            </tr>
+            <tr>
+                <td>Monitoring</td>
+                <td>Sentry</td>
+                <td>€0 - €26</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: right; font-weight: bold;">Total Est. Monthly:</td>
+                <td><strong>€140 - €366</strong></td>
+            </tr>
+        </table>
+
+        <div class="success-box">
+            <h4><i class="fas fa-check-circle icon"></i>What's Included in the Price</h4>
+            <ul>
+                <li>Complete source code ownership</li>
+                <li>All design assets</li>
+                <li>30 days of post-launch support</li>
+                <li>Deployment to production</li>
+                <li>Database migrations and setup</li>
+                <li>Basic system configuration</li>
+            </ul>
+        </div>
+
+        <h3>Optional Add-ons</h3>
+        <table>
+            <tr>
+                <th>Add-on</th>
+                <th>Cost</th>
+            </tr>
+            <tr>
+                <td>Additional training sessions (per hour)</td>
+                <td>€150</td>
+            </tr>
+            <tr>
+                <td>Extended support (per month, 3-month minimum)</td>
+                <td>€500</td>
+            </tr>
+            <tr>
+                <td>Custom integrations (per integration)</td>
+                <td>€2,000 - €5,000</td>
+            </tr>
+            <tr>
+                <td>SMS notifications setup (Twilio)</td>
+                <td>€1,500</td>
+            </tr>
+            <tr>
+                <td>Customer portal (Phase 3)</td>
+                <td>€15,000</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- 11. TECHNICAL APPROACH -->
+    <div class="no-break">
+        <h1>11. Technical Approach</h1>
+
+        <h3>Development Methodology</h3>
+        <p>We employ an <strong>Agile</strong> development methodology with 2-week sprints, ensuring flexibility,
+            iterative development, and regular feedback loops.</p>
+
+        <h4>Sprint Structure</h4>
+        <ul>
+            <li><strong>Sprint Planning:</strong> Define goals and tasks for the sprint</li>
+            <li><strong>Daily Standups:</strong> 15-minute sync meetings</li>
+            <li><strong>Sprint Review:</strong> Demonstrate completed work</li>
+            <li><strong>Sprint Retrospective:</strong> Continuous improvement</li>
+            <li><strong>Client Check-ins:</strong> Weekly progress updates</li>
+        </ul>
+
+        <h3>Monorepo Architecture</h3>
+        <div class="highlight-box">
+            <h4>Why Monorepo?</h4>
+            <p>Using Turborepo for monorepo management provides significant advantages:</p>
+            <ul>
+                <li><strong>Code Sharing:</strong> Share types, utilities, and components across all applications</li>
+                <li><strong>Atomic Changes:</strong> Update all apps simultaneously with single commits</li>
+                <li><strong>Consistent Tooling:</strong> One configuration for linting, testing, and building</li>
+                <li><strong>Faster CI/CD:</strong> Smart caching and parallel builds</li>
+                <li><strong>Type Safety:</strong> End-to-end type checking across the entire stack</li>
+            </ul>
+
+            <h4>Monorepo Structure</h4>
+            <div class="file-tree">
+                <div class="tree-root">via-flow/</div>
+                
+                <div class="tree-folder">
+                    <div class="tree-folder-name">apps/</div>
+                    <div class="tree-item">
+                        <span class="tree-item-name">dashboard/</span>
+                        <span class="tree-item-comment"># Next.js admin dashboard</span>
+                    </div>
+                    <div class="tree-item">
+                        <span class="tree-item-name">driver-app/</span>
+                        <span class="tree-item-comment"># React Native mobile app</span>
+                    </div>
+                    <div class="tree-item">
+                        <span class="tree-item-name">api/</span>
+                        <span class="tree-item-comment"># tRPC backend server</span>
+                    </div>
+                </div>
+                
+                <div class="tree-folder">
+                    <div class="tree-folder-name">packages/</div>
+                    <div class="tree-item">
+                        <span class="tree-item-name">ui/</span>
+                        <span class="tree-item-comment"># Shared React components</span>
+                    </div>
+                    <div class="tree-item">
+                        <span class="tree-item-name">config/</span>
+                        <span class="tree-item-comment"># ESLint, Prettier, TSConfig</span>
+                    </div>
+                    <div class="tree-item">
+                        <span class="tree-item-name">types/</span>
+                        <span class="tree-item-comment"># Shared TypeScript types</span>
+                    </div>
+                    <div class="tree-item">
+                        <span class="tree-item-name">db/</span>
+                        <span class="tree-item-comment"># Prisma schema & migrations</span>
+                    </div>
+                    <div class="tree-item">
+                        <span class="tree-item-name">auth/</span>
+                        <span class="tree-item-comment"># better-auth configuration</span>
+                    </div>
+                    <div class="tree-item">
+                        <span class="tree-item-name">utils/</span>
+                        <span class="tree-item-comment"># Shared utilities</span>
+                    </div>
+                </div>
+                
+                <div class="tree-file">
+                    <span class="tree-file-name">package.json</span>
+                </div>
+                <div class="tree-file">
+                    <span class="tree-file-name">turbo.json</span>
+                </div>
+                <div class="tree-file">
+                    <span class="tree-file-name">pnpm-workspace.yaml</span>
+                </div>
+            </div>
+        </div>
+
+        <h3>Type-Safe Development</h3>
+        <div class="tech-stack">
+            <div class="tech-item">
+                <strong>TypeScript Everywhere</strong>
+                100% TypeScript for compile-time type checking
+            </div>
+            <div class="tech-item">
+                <strong>tRPC</strong>
+                End-to-end type safety from client to server
+            </div>
+            <div class="tech-item">
+                <strong>Prisma</strong>
+                Type-safe database queries with auto-generated types
+            </div>
+            <div class="tech-item">
+                <strong>Zod</strong>
+                Runtime validation with TypeScript type inference
+            </div>
+        </div>
+
+        <h3>Quality Assurance</h3>
+        <h4>Testing Strategy</h4>
+        <table>
+            <tr>
+                <th>Test Type</th>
+                <th>Framework</th>
+                <th>Coverage Target</th>
+            </tr>
+            <tr>
+                <td>Unit Tests</td>
+                <td>Jest / Vitest</td>
+                <td>80%+</td>
+            </tr>
+            <tr>
+                <td>Integration Tests</td>
+                <td>Jest + Supertest</td>
+                <td>Key workflows</td>
+            </tr>
+            <tr>
+                <td>E2E Tests</td>
+                <td>Playwright</td>
+                <td>Critical user paths</td>
+            </tr>
+            <tr>
+                <td>Type Checking</td>
+                <td>TypeScript</td>
+                <td>100%</td>
+            </tr>
+        </table>
+
+        <h4>Code Quality Tools</h4>
+        <ul>
+            <li><strong>ESLint:</strong> Code linting and style enforcement</li>
+            <li><strong>Prettier:</strong> Automated code formatting</li>
+            <li><strong>Husky:</strong> Git hooks for pre-commit checks</li>
+            <li><strong>Commitlint:</strong> Conventional commit message format</li>
+        </ul>
+
+        <h3>CI/CD Pipeline</h3>
+        <div class="timeline-item">
+            <h4>Automated Deployment</h4>
+            <p>Every code change triggers automated checks:</p>
+            <ol>
+                <li>TypeScript compilation check</li>
+                <li>ESLint and Prettier validation</li>
+                <li>Unit and integration tests</li>
+                <li>Build all applications</li>
+                <li>Deploy to staging (main branch)</li>
+                <li>Deploy to production (on release)</li>
+            </ol>
+        </div>
+
+        <h3>API Design Principles</h3>
+        <ul>
+            <li><strong>RESTful Principles:</strong> Clear resource naming and HTTP methods</li>
+            <li><strong>Type Safety:</strong> tRPC procedures with Zod validation</li>
+            <li><strong>Error Handling:</strong> Consistent error responses with proper status codes</li>
+            <li><strong>Rate Limiting:</strong> Protection against abuse</li>
+            <li><strong>Pagination:</strong> Efficient data loading for large datasets</li>
+            <li><strong>Caching:</strong> Redis caching for frequently accessed data</li>
+        </ul>
+
+        <h3>Database Design</h3>
+        <div class="highlight-box">
+            <h4>Prisma Schema Approach</h4>
+            <ul>
+                <li><strong>Normalized Design:</strong> Minimal data duplication</li>
+                <li><strong>Relationships:</strong> Proper foreign keys and indexes</li>
+                <li><strong>Soft Deletes:</strong> Preserve data with deletedAt timestamps</li>
+                <li><strong>Audit Fields:</strong> createdAt, updatedAt, createdBy on all tables</li>
+                <li><strong>Enum Types:</strong> Type-safe status and role enums</li>
+                <li><strong>JSON Fields:</strong> Flexible metadata storage where appropriate</li>
+            </ul>
+        </div>
+
+        <h3>Performance Optimization</h3>
+        <ul>
+            <li><strong>Server-Side Rendering:</strong> Fast initial page loads with Next.js</li>
+            <li><strong>Code Splitting:</strong> Lazy load components for smaller bundles</li>
+            <li><strong>Image Optimization:</strong> Next.js automatic image optimization</li>
+            <li><strong>Database Indexing:</strong> Strategic indexes on frequently queried fields</li>
+            <li><strong>Query Optimization:</strong> Efficient Prisma queries with select and include</li>
+            <li><strong>Caching Strategy:</strong> Redis for session data and frequently accessed resources</li>
+        </ul>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- 12. SECURITY & COMPLIANCE -->
+    <div class="no-break">
+        <h1>12. Security & Compliance</h1>
+
+        <h3>GDPR Compliance</h3>
+        <div class="highlight-box">
+            <h4>EU Data Residency</h4>
+            <p>All data is stored and processed exclusively within the European Union:</p>
+            <ul>
+                <li><strong>Database:</strong> Neon PostgreSQL (Frankfurt, Germany)</li>
+                <li><strong>Redis:</strong> Upstash (Frankfurt, Germany)</li>
+                <li><strong>Application Hosting:</strong> EU regions only</li>
+                <li><strong>Backups:</strong> Stored in EU data centers</li>
+            </ul>
+
+            <h4>GDPR Features</h4>
+            <ul>
+                <li><strong>Right to Access:</strong> Users can export their data</li>
+                <li><strong>Right to Erasure:</strong> Complete data deletion on request</li>
+                <li><strong>Right to Rectification:</strong> Users can update their information</li>
+                <li><strong>Data Portability:</strong> Export data in standard formats</li>
+                <li><strong>Consent Management:</strong> Clear consent mechanisms</li>
+                <li><strong>Breach Notification:</strong> Automated alerting system</li>
+            </ul>
+        </div>
+
+        <h3>Data Security</h3>
+        <h4>Encryption</h4>
+        <ul>
+            <li><strong>In Transit:</strong> TLS 1.3 for all connections</li>
+            <li><strong>At Rest:</strong> Database encryption enabled</li>
+            <li><strong>Password Storage:</strong> Bcrypt hashing with salt</li>
+            <li><strong>Sensitive Data:</strong> Field-level encryption where needed</li>
+        </ul>
+
+        <h4>Authentication & Authorization</h4>
+        <table>
+            <tr>
+                <th>Feature</th>
+                <th>Implementation</th>
+            </tr>
+            <tr>
+                <td>Password Requirements</td>
+                <td>Minimum 8 characters, complexity rules</td>
+            </tr>
+            <tr>
+                <td>Two-Factor Authentication</td>
+                <td>TOTP support via better-auth</td>
+            </tr>
+            <tr>
+                <td>Session Management</td>
+                <td>Secure sessions with automatic timeout</td>
+            </tr>
+            <tr>
+                <td>Role-Based Access</td>
+                <td>Granular permissions per user role</td>
+            </tr>
+            <tr>
+                <td>API Authentication</td>
+                <td>JWT tokens with expiration</td>
+            </tr>
+            <tr>
+                <td>Password Reset</td>
+                <td>Secure token-based reset flow</td>
+            </tr>
+        </table>
+
+        <h3>Audit Logging</h3>
+        <p>Comprehensive audit trail of all system actions for compliance and troubleshooting:</p>
+        <ul>
+            <li>User authentication events (login, logout, failed attempts)</li>
+            <li>Data creation, modification, and deletion</li>
+            <li>Quote generation and approval</li>
+            <li>Ride assignments and status changes</li>
+            <li>Price adjustments and overrides</li>
+            <li>User role and permission changes</li>
+            <li>System configuration modifications</li>
+        </ul>
+
+        <p><strong>Audit Log Retention:</strong> 7 years (configurable)</p>
+
+        <h3>Application Security</h3>
+        <div class="tech-stack">
+            <div class="tech-item">
+                <strong>Input Validation</strong>
+                Zod schema validation on all inputs
+            </div>
+            <div class="tech-item">
+                <strong>SQL Injection</strong>
+                Protected via Prisma ORM parameterized queries
+            </div>
+            <div class="tech-item">
+                <strong>XSS Protection</strong>
+                React automatic escaping + CSP headers
+            </div>
+            <div class="tech-item">
+                <strong>CSRF Protection</strong>
+                Token-based CSRF prevention
+            </div>
+            <div class="tech-item">
+                <strong>Rate Limiting</strong>
+                Request throttling on all endpoints
+            </div>
+            <div class="tech-item">
+                <strong>DDoS Protection</strong>
+                Cloudflare or similar CDN protection
+            </div>
+        </div>
+
+        <h3>Infrastructure Security</h3>
+        <ul>
+            <li><strong>Network Security:</strong> Private networks, firewall rules</li>
+            <li><strong>Regular Updates:</strong> Automated security patch deployment</li>
+            <li><strong>Vulnerability Scanning:</strong> Automated security scans</li>
+            <li><strong>Dependency Audits:</strong> Regular npm audit checks</li>
+            <li><strong>Environment Separation:</strong> Isolated dev, staging, production</li>
+            <li><strong>Secret Management:</strong> Environment variables, no hardcoded secrets</li>
+        </ul>
+
+        <h3>Backup & Disaster Recovery</h3>
+        <div class="info-box">
+            <h4><i class="fas fa-box icon"></i>Backup Strategy</h4>
+            <ul>
+                <li><strong>Database Backups:</strong> Daily automated backups with 30-day retention</li>
+                <li><strong>Point-in-Time Recovery:</strong> Restore to any point in the last 7 days</li>
+                <li><strong>Geo-Redundancy:</strong> Backups replicated across EU regions</li>
+                <li><strong>Backup Testing:</strong> Monthly restoration tests</li>
+                <li><strong>RTO (Recovery Time Objective):</strong> 4 hours</li>
+                <li><strong>RPO (Recovery Point Objective):</strong> 24 hours</li>
+            </ul>
+        </div>
+
+        <h3>Security Testing</h3>
+        <ul>
+            <li>Automated security scanning in CI/CD pipeline</li>
+            <li>Manual security audit before production launch</li>
+            <li>Penetration testing (optional, recommended)</li>
+            <li>Third-party security assessment (optional)</li>
+        </ul>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- 13. BENEFITS & ROI -->
+    <div class="no-break">
+        <h1>13. Benefits & ROI</h1>
+
+        <h3>Immediate Benefits</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4><i class="fas fa-bolt icon"></i>50% Faster Quote Generation</h4>
+                <p>Automated pricing engine eliminates manual calculations, reducing quote creation time from 15 minutes
+                    to under 5 minutes.</p>
+            </div>
+
+            <div class="feature-card">
+                <h4><i class="fas fa-chart-line icon"></i>Real-Time Visibility</h4>
+                <p>Live dashboard shows all requests, quotes, and rides in real-time, eliminating information silos.</p>
+            </div>
+
+            <div class="feature-card">
+                <h4><i class="fas fa-sync-alt icon"></i>Automated Recurring Trips</h4>
+                <p>Set up once, automatically generate rides for weeks or months, saving hours of manual scheduling.</p>
+            </div>
+
+            <div class="feature-card">
+                <h4><i class="fas fa-envelope icon"></i>Reduced Communication Overhead</h4>
+                <p>Automated email notifications eliminate manual follow-ups and phone calls.</p>
+            </div>
+
+            <div class="feature-card">
+                <h4><i class="fas fa-check-circle icon"></i>Error Reduction</h4>
+                <p>Automated calculations and validations minimize human errors in pricing and scheduling.</p>
+            </div>
+
+            <div class="feature-card">
+                <h4><i class="fas fa-mobile-alt icon"></i>Driver Efficiency</h4>
+                <p>Mobile app streamlines driver communication and status updates, eliminating phone tag.</p>
+            </div>
+        </div>
+
+        <h3>Operational Improvements</h3>
+        <table>
+            <tr>
+                <th>Current Process</th>
+                <th>With ViaFlow</th>
+                <th>Time Saved</th>
+            </tr>
+            <tr>
+                <td>Manual quote calculation</td>
+                <td>Automated pricing engine</td>
+                <td>70% reduction</td>
+            </tr>
+            <tr>
+                <td>Phone calls for status updates</td>
+                <td>Real-time dashboard</td>
+                <td>80% reduction</td>
+            </tr>
+            <tr>
+                <td>Manual recurring trip scheduling</td>
+                <td>Automated schedule generation</td>
+                <td>90% reduction</td>
+            </tr>
+            <tr>
+                <td>Email/call quote delivery</td>
+                <td>Automated email with secure link</td>
+                <td>60% reduction</td>
+            </tr>
+            <tr>
+                <td>Paper-based record keeping</td>
+                <td>Digital audit trail</td>
+                <td>100% elimination</td>
+            </tr>
+        </table>
+
+        <h3>Return on Investment Analysis</h3>
+        <div class="highlight-box">
+            <h4>Conservative ROI Estimate (12 Months)</h4>
+
+            <h4>Current Situation</h4>
+            <ul>
+                <li><strong>Limitations:</strong> Outdated system, doesn't fit workflow, missing key features</li>
+                <li><strong>Manual Workarounds:</strong> Significant time spent on manual processes</li>
+            </ul>
+
+            <h4>Initial Investment (Year 1)</h4>
+            <ul>
+                <li>Development Cost: €21,000 (one-time)</li>
+                <li>New System Operating Cost: €250/month (€3,000/year)</li>
+                <li><strong>First Year Total: €24,000</strong></li>
+            </ul>
+
+            <h4>Projected Savings & Benefits (Annual)</h4>
+            <table style="margin: 20px 0;">
+                <tr>
+                    <th>Savings Category</th>
+                    <th>Monthly</th>
+                    <th>Annual</th>
+                </tr>
+                <tr>
+                    <td>Administrative time saved (15 hrs/week @ €25/hr)</td>
+                    <td>€1,500</td>
+                    <td>€18,000</td>
+                </tr>
+                <tr>
+                    <td>Reduced errors and manual corrections</td>
+                    <td>€300</td>
+                    <td>€3,600</td>
+                </tr>
+                <tr>
+                    <td>Improved workflow efficiency</td>
+                    <td>€400</td>
+                    <td>€4,800</td>
+                </tr>
+                <tr>
+                    <td>Reduced communication overhead</td>
+                    <td>€150</td>
+                    <td>€1,800</td>
+                </tr>
+                <tr style="background: #d1e7dd; font-weight: bold;">
+                    <td>Total Annual Savings</td>
+                    <td>€2,350</td>
+                    <td>€28,200</td>
+                </tr>
+            </table>
+
+            <h4>Break-Even Analysis</h4>
+            <ul>
+                <li><strong>Break-Even Point:</strong> 10-11 months</li>
+                <li><strong>Year 1 Net:</strong> +€4,200 (positive return in first year after accounting for development cost)</li>
+                <li><strong>Year 2 Net:</strong> +€25,200 (full savings year, no development cost)</li>
+                <li><strong>3-Year ROI:</strong> 235%</li>
+            </ul>
+
+            <h4>Additional Benefits Not Quantified</h4>
+            <ul>
+                <li>System tailored to your specific workflow</li>
+                <li>Modern features and capabilities</li>
+                <li>Better customer experience</li>
+                <li>Scalability for future growth</li>
+                <li>Full ownership and control of the system</li>
+            </ul>
+        </div>
+
+        <h3>Intangible Benefits</h3>
+        <ul>
+            <li><strong>Improved Customer Satisfaction:</strong> Faster quotes, transparent pricing, easier booking</li>
+            <li><strong>Better Decision Making:</strong> Real-time data and analytics for informed decisions</li>
+            <li><strong>Scalability:</strong> Handle 3-5x more volume without additional staff</li>
+            <li><strong>Compliance:</strong> GDPR-ready with comprehensive audit trails</li>
+            <li><strong>Professional Image:</strong> Modern, digital-first customer experience</li>
+            <li><strong>Employee Satisfaction:</strong> Less manual work, more focus on customer service</li>
+            <li><strong>Competitive Advantage:</strong> Technology edge over competitors</li>
+        </ul>
+
+        <h3>Long-Term Value</h3>
+        <div class="success-box">
+            <h4>Future Growth Enablers</h4>
+            <ul>
+                <li>Platform ready for customer self-service portal</li>
+                <li>Extensible for payment processing integration</li>
+                <li>Scalable to multiple regions and vehicle types</li>
+                <li>Foundation for data-driven business intelligence</li>
+                <li>Ready for AI/ML enhancements (route optimization, demand forecasting)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- 14. TERMS & CONDITIONS -->
+    <div class="no-break">
+        <h1>14. Terms & Conditions</h1>
+
+        <h3>Proposal Validity</h3>
+        <p>This proposal remains valid for <strong>60 days</strong> from the date of submission. After this period,
+            pricing and terms may be subject to revision.</p>
+
+        <h3>Intellectual Property</h3>
+        <ul>
+            <li><strong>Source Code Ownership:</strong> Upon final payment, VIA Fahrdienst GmbH will have complete ownership of all
+                custom-developed source code, including full rights to modify, distribute, and use the software.</li>
+            <li><strong>Third-Party Libraries:</strong> Open-source libraries retain their original licenses (MIT,
+                Apache, etc.).</li>
+            <li><strong>Design Assets:</strong> All design assets, documentation, and materials created for this project
+                transfer to VIA Fahrdienst GmbH upon completion.</li>
+        </ul>
+
+        <h3>Scope Changes</h3>
+        <p>Any changes to the project scope after commencement will be managed through a formal change request process:
+        </p>
+        <ul>
+            <li>Changes must be requested in writing</li>
+            <li>Impact assessment on timeline and budget will be provided</li>
+            <li>Mutual agreement required before proceeding</li>
+            <li>Additional costs will be invoiced separately</li>
+        </ul>
+
+        <h3>Confidentiality</h3>
+        <p>Both parties agree to treat all information exchanged during this project as strictly confidential. This
+            includes:</p>
+        <ul>
+            <li>Business processes and proprietary information</li>
+            <li>Technical specifications and architecture</li>
+            <li>Customer data and user information</li>
+            <li>Pricing and business strategies</li>
+        </ul>
+        <p>A formal NDA can be signed if required.</p>
+
+        <h3>Warranty & Support</h3>
+        <div class="info-box">
+            <h4>Post-Launch Support</h4>
+            <ul>
+                <li><strong>Bug Fixes:</strong> 30 days of free bug fixes for issues present at launch</li>
+                <li><strong>Technical Support:</strong> Email support during business hours</li>
+                <li><strong>Emergency Support:</strong> Critical issues addressed within 24 hours</li>
+                <li><strong>Documentation:</strong> Comprehensive technical and user documentation provided</li>
+            </ul>
+
+            <h4>Extended Support (Optional)</h4>
+            <p>After the 30-day warranty period, extended support is available:</p>
+            <ul>
+                <li><strong>Monthly Retainer:</strong> €500/month (3-month minimum)</li>
+                <li>Includes: Bug fixes, minor enhancements, priority support</li>
+                <li>Excludes: New features, major architectural changes</li>
+            </ul>
+        </div>
+
+        <h3>Limitation of Liability</h3>
+        <p>Our liability in connection with this project, whether based on breach of contract, negligence, or other
+            grounds, is limited to the total amount paid by VIA Fahrdienst GmbH for the project.</p>
+
+        <h3>Termination</h3>
+        <ul>
+            <li><strong>By Client:</strong> Either party may terminate with 30 days written notice</li>
+            <li><strong>Payment Upon Termination:</strong> VIA Fahrdienst GmbH is responsible for payment of all work completed up
+                to the termination date</li>
+            <li><strong>Deliverables:</strong> All completed work and source code will be delivered upon final payment
+            </li>
+            <li><strong>Refunds:</strong> Payments for completed milestones are non-refundable</li>
+        </ul>
+
+        <h3>Force Majeure</h3>
+        <p>Neither party shall be liable for delays or failures in performance resulting from causes beyond reasonable
+            control, including but not limited to natural disasters, war, strikes, or government restrictions.</p>
+
+        <h3>Governing Law</h3>
+        <p>This agreement shall be governed by and construed in accordance with the laws of [Your Country/State],
+            without regard to its conflict of law provisions.</p>
+
+        <h3>Dispute Resolution</h3>
+        <p>Any disputes arising from this agreement will first be attempted to resolve through good-faith negotiation.
+            If unsuccessful, disputes will be resolved through mediation before resorting to litigation.</p>
+
+        <h3>Acceptance</h3>
+        <p>This proposal, when signed by both parties, constitutes a binding agreement. A formal contract with detailed
+            terms will be provided upon acceptance of this proposal.</p>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- 15. NEXT STEPS -->
+    <div class="no-break">
+        <h1>15. Next Steps</h1>
+
+        <h3>How to Proceed</h3>
+        <p>We're excited to partner with VIA Fahrdienst GmbH and build this transformative system together. Here's how we can get
+            started:</p>
+
+        <div class="timeline-item">
+            <h4>Step 1: Review & Questions</h4>
+            <p>Take time to review this proposal thoroughly. We're happy to answer any questions or provide
+                clarification on any aspect.</p>
+            <p><strong>Contact:</strong> [Your Email] or [Your Phone]</p>
+        </div>
+
+        <div class="timeline-item">
+            <h4>Step 2: Schedule Discussion</h4>
+            <p>Let's schedule a meeting to discuss the proposal in detail, address any concerns, and finalize
+                requirements.</p>
+            <p><strong>Duration:</strong> 1-2 hours</p>
+            <p><strong>Format:</strong> Video call or in-person meeting</p>
+        </div>
+
+        <div class="timeline-item">
+            <h4>Step 3: Contract Signing</h4>
+            <p>Upon agreement, we'll provide a detailed contract outlining all terms, deliverables, and timelines.</p>
+            <p><strong>Documents Provided:</strong></p>
+            <ul>
+                <li>Master Services Agreement</li>
+                <li>Statement of Work (SOW)</li>
+                <li>Non-Disclosure Agreement (if required)</li>
+            </ul>
+        </div>
+
+        <div class="timeline-item">
+            <h4>Step 4: Initial Payment</h4>
+            <p>30% deposit (€6,300) to initiate the project and secure the development team.</p>
+            <p><strong>Payment Methods:</strong> SEPA bank transfer or international wire</p>
+        </div>
+
+        <div class="timeline-item">
+            <h4>Step 5: Project Kickoff</h4>
+            <p>Official project launch with kickoff meeting to align teams, establish communication channels, and begin
+                development.</p>
+            <p><strong>Kickoff Agenda:</strong></p>
+            <ul>
+                <li>Team introductions</li>
+                <li>Project timeline review</li>
+                <li>Communication protocols</li>
+                <li>Access to systems and tools</li>
+                <li>First sprint planning</li>
+            </ul>
+        </div>
+
+        <div class="timeline-item">
+            <h4>Step 6: Regular Updates</h4>
+            <p>Weekly progress meetings and bi-weekly demos keep you informed every step of the way.</p>
+            <p><strong>Communication Channels:</strong></p>
+            <ul>
+                <li>Weekly video calls (1 hour)</li>
+                <li>Dedicated Slack channel</li>
+                <li>Project management dashboard access</li>
+                <li>Email updates on milestones</li>
+            </ul>
+        </div>
+
+        <h3>What We Need From You</h3>
+        <div class="info-box">
+            <h4>Pre-Project Requirements</h4>
+            <ul>
+                <li><strong>Business Logic Clarification:</strong> Final pricing rules, surcharge percentages, vehicle
+                    types</li>
+                <li><strong>Branding Assets:</strong> Logo, color scheme, any existing design guidelines</li>
+                <li><strong>Sample Data:</strong> Example addresses, typical routes, historical quotes (if available)
+                </li>
+                <li><strong>API Keys:</strong> Google Maps API key (or we can set up on your behalf)</li>
+                <li><strong>Email Domain:</strong> Domain for sending system emails (e.g., noreply@viaflow.com)</li>
+                <li><strong>Point of Contact:</strong> Designated person for questions and approvals</li>
+            </ul>
+        </div>
+
+        <h3>Questions?</h3>
+        <p>We're here to help! Don't hesitate to reach out with any questions about the proposal, technology, timeline,
+            or pricing.</p>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4><i class="fas fa-envelope icon"></i>Email</h4>
+                <p><strong>[Your Email Address]</strong></p>
+                <p>Best for detailed questions and formal communications</p>
+            </div>
+
+            <div class="feature-card">
+                <h4><i class="fas fa-phone icon"></i>Phone</h4>
+                <p><strong>[Your Phone Number]</strong></p>
+                <p>Available Monday-Friday, 9 AM - 6 PM CET</p>
+            </div>
+
+            <div class="feature-card">
+                <h4><i class="fas fa-comments icon"></i>Schedule a Call</h4>
+                <p><strong>[Your Calendly/Scheduling Link]</strong></p>
+                <p>Book a 30-minute call at your convenience</p>
+            </div>
+
+            <div class="feature-card">
+                <h4><i class="fas fa-globe icon"></i>Website</h4>
+                <p><strong>[Your Company Website]</strong></p>
+                <p>Learn more about our company and services</p>
+            </div>
+        </div>
+
+        <h3>Our Commitment</h3>
+        <div class="success-box">
+            <p>At [Your Company Name], we're committed to delivering exceptional software that exceeds your
+                expectations. We don't just build software—we build partnerships. Our success is measured by your
+                success.</p>
+
+            <h4>We Promise:</h4>
+            <ul>
+                <li><i class="fas fa-check-circle icon"></i><strong>Transparent Communication:</strong> Regular updates, honest timelines, no surprises</li>
+                <li><i class="fas fa-check-circle icon"></i><strong>Quality Code:</strong> Clean, maintainable, well-tested software</li>
+                <li><i class="fas fa-check-circle icon"></i><strong>On-Time Delivery:</strong> Meeting milestones and deadlines</li>
+                <li><i class="fas fa-check-circle icon"></i><strong>Ongoing Support:</strong> We're here for you after launch</li>
+                <li><i class="fas fa-check-circle icon"></i><strong>Your Success:</strong> We measure our success by your business growth</li>
+            </ul>
+        </div>
+
+        <div class="highlight-box" style="text-align: center; margin-top: 40px;">
+            <h3>Ready to Transform Your Operations?</h3>
+            <p style="font-size: 1.2em; margin: 20px 0;">Let's build something amazing together!</p>
+            <p style="font-size: 1.1em;">Contact us today to get started or schedule a call to discuss this proposal in
+                detail.</p>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- APPENDIX -->
+    <div class="no-break">
+        <h1>Appendix A: Technical Specifications</h1>
+
+        <h3>System Requirements</h3>
+
+        <h4>Server Requirements</h4>
+        <table>
+            <tr>
+                <th>Component</th>
+                <th>Minimum Specification</th>
+            </tr>
+            <tr>
+                <td>Backend API Server</td>
+                <td>2 CPU cores, 4GB RAM, 20GB storage</td>
+            </tr>
+            <tr>
+                <td>Database (PostgreSQL)</td>
+                <td>Managed service (Neon) with automatic scaling</td>
+            </tr>
+            <tr>
+                <td>Redis Cache</td>
+                <td>Managed service (Upstash) with 256MB RAM</td>
+            </tr>
+            <tr>
+                <td>Frontend Hosting</td>
+                <td>Serverless (Vercel) with automatic scaling</td>
+            </tr>
+        </table>
+
+        <h4>Client Requirements - Dashboard</h4>
+        <ul>
+            <li><strong>Browser:</strong> Chrome 90+, Firefox 88+, Safari 14+, Edge 90+</li>
+            <li><strong>Screen Resolution:</strong> Minimum 1280x720 (optimized for 1920x1080)</li>
+            <li><strong>Internet:</strong> Broadband connection (minimum 5 Mbps)</li>
+            <li><strong>JavaScript:</strong> Must be enabled</li>
+        </ul>
+
+        <h4>Client Requirements - Driver App</h4>
+        <ul>
+            <li><strong>iOS:</strong> iOS 13.0 or later</li>
+            <li><strong>Android:</strong> Android 8.0 (API level 26) or later</li>
+            <li><strong>Storage:</strong> 50MB free space</li>
+            <li><strong>Permissions:</strong> Location, notifications, camera (optional)</li>
+        </ul>
+
+        <h3>API Endpoints Overview</h3>
+        <table>
+            <tr>
+                <th>Endpoint Category</th>
+                <th>Example Endpoints</th>
+                <th>Authentication</th>
+            </tr>
+            <tr>
+                <td>Public</td>
+                <td>/api/public/request<br>/api/quote/accept/:token</td>
+                <td>None / Token</td>
+            </tr>
+            <tr>
+                <td>Authentication</td>
+                <td>/api/auth/sign-in<br>/api/auth/sign-up<br>/api/auth/sign-out</td>
+                <td>Public / Session</td>
+            </tr>
+            <tr>
+                <td>Requests</td>
+                <td>/api/requests<br>/api/requests/:id<br>/api/requests/assign</td>
+                <td>Employee+</td>
+            </tr>
+            <tr>
+                <td>Quotes</td>
+                <td>/api/quotes<br>/api/quotes/:id<br>/api/quotes/send</td>
+                <td>Employee+</td>
+            </tr>
+            <tr>
+                <td>Rides</td>
+                <td>/api/rides<br>/api/rides/:id/status<br>/api/rides/mine</td>
+                <td>Employee+ / Driver</td>
+            </tr>
+            <tr>
+                <td>Users</td>
+                <td>/api/users<br>/api/users/:id<br>/api/users/roles</td>
+                <td>Admin</td>
+            </tr>
+            <tr>
+                <td>Reports</td>
+                <td>/api/reports/revenue<br>/api/reports/rides</td>
+                <td>Employee+</td>
+            </tr>
+        </table>
+
+        <h3>Database Schema Summary</h3>
+        <p><strong>Main Tables:</strong></p>
+        <ul>
+            <li><strong>User:</strong> System users (admin, employees, drivers)</li>
+            <li><strong>Customer:</strong> Customer information</li>
+            <li><strong>CustomerRequest:</strong> Transportation requests from customers</li>
+            <li><strong>Stop:</strong> Individual stops (pickup, dropoff, intermediate)</li>
+            <li><strong>Quote:</strong> Price quotes generated for requests</li>
+            <li><strong>Ride:</strong> Actual ride assignments with driver and vehicle</li>
+            <li><strong>Passenger:</strong> Passenger details for each ride</li>
+            <li><strong>Vehicle:</strong> Fleet vehicles</li>
+            <li><strong>RecurringSchedule:</strong> Recurring trip schedules</li>
+            <li><strong>RecurringStop:</strong> Stops for recurring schedules</li>
+            <li><strong>ServiceType:</strong> Types of services (disabled transport, senior, etc.)</li>
+            <li><strong>PricingRule:</strong> Configurable pricing rules</li>
+            <li><strong>AuditLog:</strong> Comprehensive audit trail</li>
+        </ul>
+
+        <h3>Third-Party Services</h3>
+        <table>
+            <tr>
+                <th>Service</th>
+                <th>Provider Options</th>
+                <th>Purpose</th>
+            </tr>
+            <tr>
+                <td>Mapping & Routing</td>
+                <td>Google Maps / Mapbox</td>
+                <td>Distance calculation, geocoding, directions</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>Postmark / AWS SES</td>
+                <td>Transactional emails, notifications</td>
+            </tr>
+            <tr>
+                <td>SMS (Optional)</td>
+                <td>Twilio</td>
+                <td>Customer notifications</td>
+            </tr>
+            <tr>
+                <td>Push Notifications</td>
+                <td>Expo Push / FCM</td>
+                <td>Driver app notifications</td>
+            </tr>
+            <tr>
+                <td>Error Tracking</td>
+                <td>Sentry</td>
+                <td>Application monitoring and error reporting</td>
+            </tr>
+            <tr>
+                <td>PDF Generation</td>
+                <td>Puppeteer / PDFKit</td>
+                <td>Quote documents</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- APPENDIX B -->
+    <div class="no-break">
+        <h1>Appendix B: Glossary</h1>
+
+        <table>
+            <tr>
+                <th style="width: 25%;">Term</th>
+                <th>Definition</th>
+            </tr>
+            <tr>
+                <td><strong>Admin Dashboard</strong></td>
+                <td>Web-based interface for managing all aspects of the system</td>
+            </tr>
+            <tr>
+                <td><strong>API</strong></td>
+                <td>Application Programming Interface - the backend server that handles business logic</td>
+            </tr>
+            <tr>
+                <td><strong>Audit Log</strong></td>
+                <td>Comprehensive record of all system actions for compliance and troubleshooting</td>
+            </tr>
+            <tr>
+                <td><strong>better-auth</strong></td>
+                <td>Modern authentication library for user login and security</td>
+            </tr>
+            <tr>
+                <td><strong>BullMQ</strong></td>
+                <td>Queue system for processing background jobs (emails, PDFs)</td>
+            </tr>
+            <tr>
+                <td><strong>CI/CD</strong></td>
+                <td>Continuous Integration/Continuous Deployment - automated testing and deployment</td>
+            </tr>
+            <tr>
+                <td><strong>GDPR</strong></td>
+                <td>General Data Protection Regulation - EU data privacy law</td>
+            </tr>
+            <tr>
+                <td><strong>Monorepo</strong></td>
+                <td>Single repository containing multiple related applications and shared code</td>
+            </tr>
+            <tr>
+                <td><strong>MVP</strong></td>
+                <td>Minimum Viable Product - core functionality for initial launch</td>
+            </tr>
+            <tr>
+                <td><strong>Next.js</strong></td>
+                <td>React framework for building web applications with server-side rendering</td>
+            </tr>
+            <tr>
+                <td><strong>ORM</strong></td>
+                <td>Object-Relational Mapping - database abstraction layer (Prisma)</td>
+            </tr>
+            <tr>
+                <td><strong>PostgreSQL</strong></td>
+                <td>Relational database system for storing all application data</td>
+            </tr>
+            <tr>
+                <td><strong>Pricing Engine</strong></td>
+                <td>Automated system for calculating transportation quotes</td>
+            </tr>
+            <tr>
+                <td><strong>Prisma</strong></td>
+                <td>Modern ORM for type-safe database operations</td>
+            </tr>
+            <tr>
+                <td><strong>React Native</strong></td>
+                <td>Framework for building native mobile apps using React</td>
+            </tr>
+            <tr>
+                <td><strong>Redis</strong></td>
+                <td>In-memory data store used for caching and job queues</td>
+            </tr>
+            <tr>
+                <td><strong>RBAC</strong></td>
+                <td>Role-Based Access Control - permission system based on user roles</td>
+            </tr>
+            <tr>
+                <td><strong>ROI</strong></td>
+                <td>Return on Investment - financial benefit from the system</td>
+            </tr>
+            <tr>
+                <td><strong>Surcharge</strong></td>
+                <td>Additional fee applied based on time, location, or service type</td>
+            </tr>
+            <tr>
+                <td><strong>tRPC</strong></td>
+                <td>Type-safe API framework enabling end-to-end type safety</td>
+            </tr>
+            <tr>
+                <td><strong>Turborepo</strong></td>
+                <td>Build system for managing monorepo projects efficiently</td>
+            </tr>
+            <tr>
+                <td><strong>TypeScript</strong></td>
+                <td>Typed superset of JavaScript providing compile-time type checking</td>
+            </tr>
+            <tr>
+                <td><strong>UAT</strong></td>
+                <td>User Acceptance Testing - final testing phase before production launch</td>
+            </tr>
+            <tr>
+                <td><strong>WebSocket</strong></td>
+                <td>Protocol for real-time, two-way communication between client and server</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- APPENDIX C -->
+    <div class="no-break">
+        <h1>Appendix C: FAQ</h1>
+
+        <h3>General Questions</h3>
+
+        <h4>Q: Why a monorepo architecture?</h4>
+        <p><strong>A:</strong> A monorepo allows us to share code between the dashboard, mobile app, and API, ensuring
+            consistency and reducing duplication. It also enables atomic changes across all applications and simplifies
+            dependency management.</p>
+
+        <h4>Q: Can we add features after the MVP launch?</h4>
+        <p><strong>A:</strong> Absolutely! The system is designed to be extensible. We can add new features through
+            additional development sprints on a time-and-materials basis or through a monthly retainer.</p>
+
+        <h4>Q: What if we want to self-host instead of using managed services?</h4>
+        <p><strong>A:</strong> We can adapt the deployment strategy for self-hosting. This may require additional
+            infrastructure setup and ongoing maintenance, but the application is fully compatible with self-hosted
+            environments.</p>
+
+        <h3>Technical Questions</h3>
+
+        <h4>Q: Why tRPC instead of REST or GraphQL?</h4>
+        <p><strong>A:</strong> tRPC provides end-to-end type safety without code generation, reducing bugs and improving
+            developer experience. For your use case, it offers the perfect balance of type safety and simplicity. We can
+            switch to REST if preferred.</p>
+
+        <h4>Q: Can the system handle multiple languages?</h4>
+        <p><strong>A:</strong> Yes, internationalization (i18n) can be added. The MVP will be in English/German
+            (specify), with additional languages available as an enhancement.</p>
+
+        <h4>Q: What happens if a third-party service (like Google Maps) goes down?</h4>
+        <p><strong>A:</strong> The system includes error handling and fallback mechanisms. For critical services, we
+            implement retry logic and graceful degradation. Quotes can still be created manually if APIs are
+            unavailable.</p>
+
+        <h4>Q: Is the system mobile-responsive?</h4>
+        <p><strong>A:</strong> Yes, the dashboard is fully responsive and works on tablets and mobile devices. However,
+            for the best driver experience, we recommend the dedicated React Native mobile app.</p>
+
+        <h3>Security Questions</h3>
+
+        <h4>Q: How is customer data protected?</h4>
+        <p><strong>A:</strong> All data is encrypted in transit (TLS 1.3) and at rest. Access is controlled through
+            role-based permissions. We follow GDPR requirements and industry best practices for data protection.</p>
+
+        <h4>Q: Can we perform our own security audit?</h4>
+        <p><strong>A:</strong> Yes, we welcome third-party security audits. We'll provide full access to the codebase
+            and documentation to facilitate the audit process.</p>
+
+        <h4>Q: What authentication methods are supported?</h4>
+        <p><strong>A:</strong> The MVP includes password-based authentication with optional 2FA. We can add magic links,
+            social login, or single sign-on (SSO) as enhancements.</p>
+
+        <h3>Business Questions</h3>
+
+        <h4>Q: Can we customize the pricing rules?</h4>
+        <p><strong>A:</strong> Yes, pricing rules are fully configurable through the admin interface. You can set base
+            fees, per-kilometer rates, time-based pricing, and various surcharges without code changes.</p>
+
+        <h4>Q: How do recurring trips work?</h4>
+        <p><strong>A:</strong> Set up a recurring schedule once (e.g., "every Monday and Wednesday at 8 AM for 3
+            months"), and the system automatically generates individual rides. Each ride can still be modified or
+            cancelled independently.</p>
+
+        <h4>Q: Can customers access the system directly?</h4>
+        <p><strong>A:</strong> The MVP focuses on the request intake form (public) and employee/driver interfaces. A
+            customer portal for tracking bookings and viewing history is available as Phase 3.</p>
+
+        <h4>Q: What reports are included?</h4>
+        <p><strong>A:</strong> The MVP includes basic reports: request volume, quote conversion, driver performance, and
+            revenue by service type. Advanced analytics and custom reports can be added post-MVP.</p>
+
+        <h3>Support Questions</h3>
+
+        <h4>Q: What training is provided?</h4>
+        <p><strong>A:</strong> We provide up to 4 hours of training sessions for employees and drivers, plus
+            comprehensive documentation. Additional training is available at €150/hour.</p>
+
+        <h4>Q: What happens after the 30-day warranty period?</h4>
+        <p><strong>A:</strong> You can continue with monthly support (€500/month) for ongoing maintenance and minor
+            enhancements, or engage us on a project basis for larger features.</p>
+
+        <h4>Q: Can you help with future integrations?</h4>
+        <p><strong>A:</strong> Yes, we can integrate with accounting software, payment gateways, or other systems.
+            Integration projects are quoted separately based on complexity.</p>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- SIGNATURE PAGE -->
+    <div class="no-break">
+        <h1>Proposal Acceptance</h1>
+
+        <p>By signing below, both parties agree to the terms and conditions outlined in this proposal and commit to
+            working together to deliver the ViaFlow Dispatch & Quote Management System.</p>
+
+        <div class="highlight-box">
+            <h3>Project Summary</h3>
+            <table>
+                <tr>
+                    <td><strong>Project Name:</strong></td>
+                    <td>ViaFlow Dispatch & Quote Management System</td>
+                </tr>
+                <tr>
+                    <td><strong>Total Investment:</strong></td>
+                    <td>€21,000 (Phase 1 + Phase 2)</td>
+                </tr>
+                <tr>
+                    <td><strong>Timeline:</strong></td>
+                    <td>16-20 weeks from project kickoff</td>
+                </tr>
+                <tr>
+                    <td><strong>Initial Payment:</strong></td>
+                    <td>€6,300 (30% upon signing)</td>
+                </tr>
+                <tr>
+                    <td><strong>Proposal Valid Until:</strong></td>
+                    <td>60 days from submission</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="signature-section">
+            <div class="signature-box">
+                <h3>VIA Fahrdienst GmbH</h3>
+                <div class="signature-line"></div>
+                <p><strong>Authorized Signature</strong></p>
+                <p>Name: _______________________________</p>
+                <p>Title: _______________________________</p>
+                <p>Date: _______________________________</p>
+            </div>
+
+            <div class="signature-box">
+                <h3>Blu Solutions</h3>
+                <div class="signature-line"></div>
+                <p><strong>Authorized Signature</strong></p>
+                <p>Name: _______________________________</p>
+                <p>Title: _______________________________</p>
+                <p>Date: _______________________________</p>
+            </div>
+        </div>
+
+        <div class="info-box" style="margin-top: 40px;">
+            <h4><i class="fas fa-file-alt icon"></i>Next Steps After Signing</h4>
+            <ol>
+                <li>We'll prepare the detailed Master Services Agreement and Statement of Work</li>
+                <li>Invoice for initial payment (30%) will be sent within 24 hours</li>
+                <li>Project kickoff meeting will be scheduled within 3 business days of payment</li>
+                <li>Development begins immediately following kickoff</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <p><strong>VIA Fahrdienst GmbH - Software Development Proposal</strong></p>
+        <p>Prepared by Blu Solutions | +389 77 762836</p>
+        <p>© 2025 Blu Solutions. All rights reserved.</p>
+        <p style="margin-top: 10px; font-size: 0.85em;">This proposal is confidential and intended solely for VIA Fahrdienst GmbH.</p>
+    </div>
+    </div>
+</body>
+
+</html>
