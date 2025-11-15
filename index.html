@@ -441,6 +441,21 @@
         .icon {
             margin-right: 8px;
         }
+        
+        a {
+            color: #2563eb;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        a:hover {
+            color: #1e40af;
+            text-decoration: underline;
+        }
+        
+        a:visited {
+            color: #2563eb;
+        }
 
         .diagram {
             font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
@@ -646,6 +661,249 @@
             color: #1e293b;
             font-weight: 500;
         }
+        
+        /* Mobile Responsive Styles */
+        @media screen and (max-width: 768px) {
+            body {
+                max-width: 100%;
+                padding: 0;
+                word-wrap: break-word;
+                overflow-x: hidden;
+            }
+            
+            .document-wrapper {
+                padding: 20px 16px;
+                min-height: auto;
+            }
+            
+            .cover-page h1 {
+                font-size: 2.5em;
+                margin-bottom: 16px;
+            }
+            
+            .cover-page h2 {
+                font-size: 1.25em;
+                margin-bottom: 32px;
+            }
+            
+            .cover-info p {
+                font-size: 0.9em;
+            }
+            
+            h1 {
+                font-size: 1.75em;
+                margin: 32px 0 20px 0;
+            }
+            
+            h2 {
+                font-size: 1.4em;
+                margin: 28px 0 14px 0;
+            }
+            
+            h3 {
+                font-size: 1.2em;
+                margin: 24px 0 10px 0;
+            }
+            
+            h4 {
+                font-size: 1.05em;
+                margin: 18px 0 6px 0;
+            }
+            
+            p {
+                font-size: 0.9em;
+                margin: 0 0 14px 0;
+            }
+            
+            ul, ol {
+                margin: 14px 0;
+                padding-left: 20px;
+            }
+            
+            li {
+                margin: 6px 0;
+                font-size: 0.9em;
+            }
+            
+            .highlight-box,
+            .info-box,
+            .success-box {
+                padding: 16px;
+                margin: 20px 0;
+            }
+            
+            table {
+                display: block;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                margin: 20px 0;
+                font-size: 0.85em;
+                width: 100%;
+            }
+            
+            th, td {
+                padding: 10px 12px;
+                white-space: nowrap;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                margin: 20px 0;
+            }
+            
+            .feature-card {
+                padding: 20px;
+            }
+            
+            .tech-stack {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                margin: 16px 0;
+            }
+            
+            .tech-item {
+                padding: 14px;
+            }
+            
+            .timeline-item {
+                padding-left: 32px;
+                margin: 20px 0;
+            }
+            
+            .timeline-item::before {
+                left: -2px;
+                width: 10px;
+                height: 10px;
+            }
+            
+            .pricing-box {
+                padding: 32px 24px;
+                margin: 24px 0;
+            }
+            
+            .pricing-box .amount {
+                font-size: 2.5em;
+            }
+            
+            .pricing-box h3 {
+                font-size: 1.3em;
+            }
+            
+            .signature-section {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                margin: 40px 0;
+            }
+            
+            .architecture-diagram {
+                padding: 24px 16px;
+            }
+            
+            .arch-box {
+                padding: 16px;
+                max-width: 100%;
+            }
+            
+            .arch-box h4 {
+                font-size: 1em;
+            }
+            
+            .arch-box p {
+                font-size: 0.8em;
+            }
+            
+            .arch-connections {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .file-tree {
+                padding: 16px;
+                margin: 20px 0;
+                overflow-x: auto;
+            }
+            
+            .tree-item,
+            .tree-file {
+                padding-left: 16px;
+                font-size: 0.8em;
+                word-break: break-word;
+            }
+            
+            .tree-item-comment {
+                display: block;
+                margin-top: 4px;
+            }
+            
+            .tree-folder-name {
+                font-size: 0.85em;
+            }
+            
+            .diagram {
+                padding: 16px;
+                font-size: 0.75em;
+                overflow-x: auto;
+                word-break: break-all;
+            }
+            
+            .badge {
+                font-size: 0.75em;
+                padding: 3px 10px;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .document-wrapper {
+                padding: 16px 12px;
+            }
+            
+            .cover-page h1 {
+                font-size: 2em;
+            }
+            
+            .cover-page h2 {
+                font-size: 1.1em;
+            }
+            
+            h1 {
+                font-size: 1.5em;
+            }
+            
+            h2 {
+                font-size: 1.25em;
+            }
+            
+            h3 {
+                font-size: 1.1em;
+            }
+            
+            .pricing-box {
+                padding: 24px 16px;
+            }
+            
+            .pricing-box .amount {
+                font-size: 2em;
+            }
+            
+            table {
+                font-size: 0.8em;
+            }
+            
+            th, td {
+                padding: 8px 10px;
+            }
+            
+            .feature-card {
+                padding: 16px;
+            }
+            
+            .highlight-box,
+            .info-box,
+            .success-box {
+                padding: 14px;
+            }
+        }
     </style>
 </head>
 
@@ -658,7 +916,7 @@
         <div class="cover-info">
             <p><strong>Software Development Proposal</strong></p>
             <p>Prepared for: VIA Fahrdienst GmbH</p>
-            <p>Date: January 2025</p>
+            <p>Date: November 2025</p>
             <p>Version: 1.0</p>
         </div>
     </div>
@@ -2522,7 +2780,7 @@
             <h4>Step 1: Review & Questions</h4>
             <p>Take time to review this proposal thoroughly. We're happy to answer any questions or provide
                 clarification on any aspect.</p>
-            <p><strong>Contact:</strong> [Your Email] or [Your Phone]</p>
+            <p><strong>Contact:</strong> <a href="mailto:blusolutionsmk@gmail.com">blusolutionsmk@gmail.com</a> or <a href="tel:+389777628836">+389 77 7628836</a></p>
         </div>
 
         <div class="timeline-item">
@@ -2598,32 +2856,32 @@
         <div class="feature-grid">
             <div class="feature-card">
                 <h4><i class="fas fa-envelope icon"></i>Email</h4>
-                <p><strong>[Your Email Address]</strong></p>
+                <p><strong><a href="mailto:blusolutionsmk@gmail.com">blusolutionsmk@gmail.com</a></strong></p>
                 <p>Best for detailed questions and formal communications</p>
             </div>
 
             <div class="feature-card">
                 <h4><i class="fas fa-phone icon"></i>Phone</h4>
-                <p><strong>[Your Phone Number]</strong></p>
+                <p><strong><a href="tel:+389777628836">+389 77 7628836</a></strong></p>
                 <p>Available Monday-Friday, 9 AM - 6 PM CET</p>
             </div>
 
-            <div class="feature-card">
+            <!-- <div class="feature-card">
                 <h4><i class="fas fa-comments icon"></i>Schedule a Call</h4>
                 <p><strong>[Your Calendly/Scheduling Link]</strong></p>
                 <p>Book a 30-minute call at your convenience</p>
-            </div>
+            </div> -->
 
             <div class="feature-card">
                 <h4><i class="fas fa-globe icon"></i>Website</h4>
-                <p><strong>[Your Company Website]</strong></p>
+                <p><strong><a href="https://blusoltions.co" target="_blank" rel="noopener noreferrer">blusoltions.co</a></strong></p>
                 <p>Learn more about our company and services</p>
             </div>
         </div>
 
         <h3>Our Commitment</h3>
         <div class="success-box">
-            <p>At [Your Company Name], we're committed to delivering exceptional software that exceeds your
+            <p>At Blu Solutions, we're committed to delivering exceptional software that exceeds your
                 expectations. We don't just build software—we build partnerships. Our success is measured by your
                 success.</p>
 
@@ -3064,7 +3322,7 @@
     <!-- FOOTER -->
     <div class="footer">
         <p><strong>VIA Fahrdienst GmbH - Software Development Proposal</strong></p>
-        <p>Prepared by Blu Solutions | +389 77 762836</p>
+        <p>Prepared by Blu Solutions | +389 77 7628836 | blusolutionsmk@gmail.com | blusoltions.co</p>
         <p>© 2025 Blu Solutions. All rights reserved.</p>
         <p style="margin-top: 10px; font-size: 0.85em;">This proposal is confidential and intended solely for VIA Fahrdienst GmbH.</p>
     </div>
